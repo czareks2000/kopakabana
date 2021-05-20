@@ -14,6 +14,7 @@ namespace Kopakabana
 
         public Rozgrywka(List<Druzyna> druzyny, Typ typ)
         {
+            wyniki = new SortedDictionary<Druzyna, int>();
             spotkania = new List<Spotkanie>();
 
             typGry = typ;

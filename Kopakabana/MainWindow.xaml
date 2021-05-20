@@ -5,8 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kopakabana"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1600">
+        Title="Kopakabana" Height="900" Width="1600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:Osoba}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Imie}"/>
+                <TextBlock Text=" "/>
+                <TextBlock Text="{Binding Nazwisko}"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:Druzyna}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Nazwa}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        
+        <TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="861" VerticalAlignment="Center" Width="1594" Background="#FFEAEAEA" Margin="0,10,0,0">
+            <TabItem Header="Sedziowie" Width="200" Height="50" FontSize="20" Margin="0" IsSelected="True">
+                <Grid>
+                    <ListBox x:Name="listBox_sedziowie" Margin="10,10,705,69"/>
+                    <Separator Margin="489,363,287,358" RenderTransformOrigin="0.5,0.5">
+                        <Separator.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Separator.RenderTransform>
+                    </Separator>
+                    <GroupBox x:Name="groupBox_sedziowie" Header="" Margin="944,270,42,273" Background="White" BorderBrush="Black">
+                        <Grid>
+                            <TextBox x:Name="tbx_ImieSedzia" HorizontalAlignment="Center" Height="27" Margin="10,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="495" RenderTransformOrigin="0.478,0.484" BorderBrush="Black"/>
+                            <TextBox x:Name="tbx_NazwiskoSedzia" HorizontalAlignment="Left" Height="31" Margin="55,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="495" BorderBrush="Black"/>
+                            <Label x:Name="lbl_ImieSedzia" Content="Imie:" HorizontalAlignment="Left" Margin="55,0,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="lbl_NazwiskoSedzia" Content="Nazwisko:" HorizontalAlignment="Left" Margin="55,73,0,0" VerticalAlignment="Top"/>
+                            <Button x:Name="btn_DodajSedziego" Content="Dodaj" HorizontalAlignment="Center" Margin="242,163,236,23" VerticalAlignment="Center" Width="112" Height="40" Background="#FFDDDDDD" BorderBrush="Black" Click="btn_DodajSedziego_Click"/>
+                        </Grid>
+                    </GroupBox>
+                    <Button x:Name="btn_UsunSedziego" Content="Usun" HorizontalAlignment="Left" Margin="395,752,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.627,-0.258" Click="btn_UsunSedziego_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Druzyny" Width="200" Height="50" FontSize="20" Margin="0">
+                <Grid>
+                    <ListBox x:Name="listBox_druzyny" Margin="10,10,705,69"/>
+                    <Separator Margin="489,363,287,358" RenderTransformOrigin="0.5,0.5">
+                        <Separator.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Separator.RenderTransform>
+                    </Separator>
+                    <GroupBox x:Name="groupBox_druzyny" Header="" Margin="944,270,42,341" Background="White" BorderBrush="Black">
+                        <Grid>
+                            <TextBox x:Name="tbx_NazwaDruzyna" HorizontalAlignment="Left" Height="31" Margin="55,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="495" BorderBrush="Black"/>
+                            <Label x:Name="lbl_NazwaDruzyna" Content="Nazwa Drużyny:" HorizontalAlignment="Left" Margin="55,0,0,0" VerticalAlignment="Top"/>
+                            <Button x:Name="btn_DodajDruzyne" Content="Dodaj" HorizontalAlignment="Center" Margin="242,0,236,14" VerticalAlignment="Bottom" Width="112" Height="40" Background="#FFDDDDDD" BorderBrush="Black" Click="btn_DodajDruzyne_Click"/>
+                        </Grid>
+                    </GroupBox>
+                    <Button x:Name="btn_UsunDruzyne" Content="Usun" HorizontalAlignment="Left" Margin="395,752,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.627,-0.258" Click="btn_UsunDruzyne_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Rozgrywki" Width="200" Height="50" FontSize="20" Margin="0" Background="#FFE5E5E5"/>
+
+
+        </TabControl>
+        <Button x:Name="btn_save" Content="Zapisz stan" HorizontalAlignment="Left" Margin="1331,15,0,0" VerticalAlignment="Top" Width="100" Height="25"/>
+        <Button x:Name="btn_load" Content="Wczytaj stan" HorizontalAlignment="Left" Margin="1459,15,0,0" VerticalAlignment="Top" Width="100" Height="25"/>
     </Grid>
 </Window>

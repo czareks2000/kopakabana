@@ -8,18 +8,13 @@ namespace Kopakabana
 {
     class Osoba
     {
-        private string imie;
-        private string nazwisko;
+        public string Imie { get; private set; }
+        public string Nazwisko { get; private set; }
 
-        public void SetNazwa(string imie, string nazwisko)
+        public Osoba(string imie, string nazwisko)
         {
-            this.imie = imie;
-            this.nazwisko = nazwisko;
-        }
-
-        public string GetNazwa()
-        {
-            return imie + " " + nazwisko;
+            Imie = imie;
+            Nazwisko = nazwisko;
         }
     }
 }
