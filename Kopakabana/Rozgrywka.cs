@@ -12,6 +12,18 @@ namespace Kopakabana
         protected SortedDictionary<Druzyna, int> wyniki;
         protected Typ typGry;
 
+        public Rozgrywka(List<Druzyna> druzyny, Typ typ)
+        {
+            spotkania = new List<Spotkanie>();
+
+            typGry = typ;
+
+            foreach (var druzyna in druzyny)
+            {
+                wyniki.Add(druzyna, 0);
+            }
+        }
+
         public SortedDictionary<Druzyna, int> TablicaWynikow()
         {
             return wyniki;
@@ -57,6 +69,26 @@ namespace Kopakabana
         public Typ GetTyp()
         {
             return typGry;
+        }
+
+        protected List<Osoba> LosujSedziow(List<Osoba> wszyscySedziowie)
+        {
+            //tworzymy HashSet losowych indekesów bez powtórzeń
+            Random rnd = new Random();
+            HashSet<int> wylosowaneIndeksy = new HashSet<int>();
+            while(wylosowaneIndeksy.Count < typGry.LiczbaSedziow)
+            {
+                wylosowaneIndeksy.Add(rnd.Next(0, wszyscySedziowie.Count));
+            }
+
+            //tworzymi liste sedziow o wylosowanych wczesniej indeksach
+            List<Osoba> sedziowie = new List<Osoba>();
+            foreach (var index in wylosowaneIndeksy)
+            {
+                sedziowie.Add(wszyscySedziowie[index]);
+            }
+
+            return sedziowie;
         }
     }
 }
