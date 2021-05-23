@@ -8,37 +8,27 @@ namespace Kopakabana
 {
     class Spotkanie
     {
-        private Druzyna druzyna1;
-        private Druzyna druzyna2;
+        public Druzyna Druzyna1 { get; private set; }
+        public Druzyna Druzyna2 { get; private set; }
         private List<Osoba> sedziowie;
-        private Druzyna wygranaDruzyna;
+        public Druzyna WygranaDruzyna { get; private set; }
         public bool CzyZakonczone { get; private set; }
 
         public Spotkanie(Druzyna d1, Druzyna d2, List<Osoba> s)
         {
-            druzyna1 = d1;
-            druzyna2 = d2;
+            Druzyna1 = d1;
+            Druzyna2 = d2;
             sedziowie = s;
             CzyZakonczone = false;
         }
 
         public void Zakoncz(Druzyna druzyna)
         {
-            if (druzyna != druzyna1 && druzyna != druzyna2)
+            if (druzyna != Druzyna1 && druzyna != Druzyna2)
                 throw new Exception("Podana druzyna nie nalezy do spotkania");
 
             CzyZakonczone = true;
-            wygranaDruzyna = druzyna;
-        }
-
-        public Druzyna GetDruzyna1()
-        {
-            return druzyna1;
-        }
-
-        public Druzyna GetDruzyna2()
-        {
-            return druzyna2;
+            WygranaDruzyna = druzyna;
         }
 
         public List<Osoba> GetSedziowie()
@@ -46,9 +36,15 @@ namespace Kopakabana
             return sedziowie;
         }
 
-        public Druzyna GetWygranaDruzyna()
+        public List<Druzyna> GetDruzyny()
         {
-            return wygranaDruzyna;
+            List<Druzyna> druzyny = new List<Druzyna>
+            {
+                Druzyna1,
+                Druzyna2
+            };
+
+            return druzyny;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Kopakabana
 {
     class FazaFinalowa : Rozgrywka
     {
-        public FazaFinalowa(List<Druzyna> druzyny, List<Osoba> sedziowie, Typ typ)
+        public FazaFinalowa(List<Druzyna> druzyny, List<Osoba> sedziowie, TypGry typ)
             : base(druzyny, typ)
         {
             //utworzenie dwóch spotkań półfinałowych

@@ -9,12 +9,12 @@ namespace Kopakabana
     abstract class Rozgrywka
     {
         protected List<Spotkanie> spotkania;
-        protected SortedDictionary<Druzyna, int> wyniki;
-        protected Typ typGry;
+        protected Dictionary<Druzyna, int> wyniki;
+        protected TypGry typGry;
 
-        public Rozgrywka(List<Druzyna> druzyny, Typ typ)
+        public Rozgrywka(List<Druzyna> druzyny, TypGry typ)
         {
-            wyniki = new SortedDictionary<Druzyna, int>();
+            wyniki = new Dictionary<Druzyna, int>();
             spotkania = new List<Spotkanie>();
 
             typGry = typ;
@@ -25,7 +25,7 @@ namespace Kopakabana
             }
         }
 
-        public SortedDictionary<Druzyna, int> TablicaWynikow()
+        public Dictionary<Druzyna, int> TablicaWynikow()
         {
             return wyniki;
         }
@@ -67,7 +67,7 @@ namespace Kopakabana
             wyniki[druzyna] += 1;
         }
 
-        public Typ GetTyp()
+        public TypGry GetTyp()
         {
             return typGry;
         }

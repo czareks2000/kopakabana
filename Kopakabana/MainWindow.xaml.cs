@@ -22,16 +22,20 @@ namespace Kopakabana
     {
         private List<Druzyna> druzyny = new List<Druzyna>();
         private List<Osoba> sedziowie = new List<Osoba>();
-        private List<Typ> typyGry = new List<Typ>();
+        private FazaPoczatkowa fazaPoczatkowa;
+        private FazaFinalowa fazaFinalowa;
+        private bool czyRozgrywkaRozpoczeta = false;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            typyGry.Add(new Typ("Siatkowka Plażowa", 3));
-            typyGry.Add(new Typ("2 Ognie", 1));
-            typyGry.Add(new Typ("Przeciąganie liny", 1));
-            
+            lbl_NazwaEtapu.Visibility = Visibility.Hidden;
+            listBox_spotkania.Visibility = Visibility.Hidden;
+            separatorRozgrywka.Visibility = Visibility.Hidden;
+            lbl_tablicaWynikow.Visibility = Visibility.Hidden;
+            listBox_tablicaWynikow.Visibility = Visibility.Hidden;
+            btn_WprowadzWynik.Visibility = Visibility.Hidden;
             listBox_druzyny.ItemsSource = druzyny;
             listBox_sedziowie.ItemsSource = sedziowie;
         }
@@ -61,6 +65,51 @@ namespace Kopakabana
         {
             druzyny.RemoveAt(listBox_druzyny.SelectedIndex);
             listBox_druzyny.Items.Refresh();
+        }
+
+        private void btn_StartRozgrywka_Click(object sender, RoutedEventArgs e)
+        {
+            DlgTypGry dlg = new DlgTypGry();
+            if (true == dlg.ShowDialog())
+            {
+                fazaPoczatkowa = new FazaPoczatkowa(druzyny, sedziowie, (TypGry)dlg.cbx_TypGry.SelectedItem);
+
+                czyRozgrywkaRozpoczeta = true;
+                btn_StartRozgrywka.Visibility = Visibility.Hidden;
+                lbl_NazwaEtapu.Visibility = Visibility.Visible;
+                listBox_spotkania.Visibility = Visibility.Visible;
+                separatorRozgrywka.Visibility = Visibility.Visible;
+                lbl_tablicaWynikow.Visibility = Visibility.Visible;
+                listBox_tablicaWynikow.Visibility = Visibility.Visible;
+                btn_WprowadzWynik.Visibility = Visibility.Visible;
+                listBox_spotkania.ItemsSource = fazaPoczatkowa.Spotkania();
+                listBox_spotkania.Items.Refresh();
+                listBox_tablicaWynikow.ItemsSource = fazaPoczatkowa.TablicaWynikow();
+                listBox_tablicaWynikow.Items.Refresh();
+            }
+
+        }
+
+        private void btn_WprowadzWynik_Click(object sender, RoutedEventArgs e)
+        {
+            DlgSpotkanie dlg = new DlgSpotkanie();
+            Spotkanie spotkanie = fazaPoczatkowa.KolejneSpotkanie();
+            dlg.lbl_druzyna1.Content = spotkanie.Druzyna1.Nazwa;
+            dlg.lbl_druzyna2.Content = spotkanie.Druzyna2.Nazwa;
+            List<Osoba> sedziowieSpotkania = spotkanie.GetSedziowie();
+            dlg.lbl_sedzia1.Content = sedziowieSpotkania[0].Imie + " " + sedziowieSpotkania[0].Nazwisko;
+            if (sedziowieSpotkania.Count == 3)
+            {
+                dlg.lbl_sedzia2.Content = sedziowieSpotkania[1].Imie + " " + sedziowieSpotkania[1].Nazwisko;
+                dlg.lbl_sedzia3.Content = sedziowieSpotkania[2].Imie + " " + sedziowieSpotkania[2].Nazwisko;
+            }
+            dlg.cb_wygranaDruzyna.ItemsSource = spotkanie.GetDruzyny();
+            if (true == dlg.ShowDialog())
+            {
+                spotkanie.Zakoncz((Druzyna)dlg.cb_wygranaDruzyna.SelectedItem);
+                fazaPoczatkowa.DodajPunkt((Druzyna)dlg.cb_wygranaDruzyna.SelectedItem);
+                listBox_spotkania.Items.Refresh();
+            }
         }
     }
 }

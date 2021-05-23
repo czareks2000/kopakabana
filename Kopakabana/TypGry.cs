@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
-    class Typ
+    class TypGry
     {
         public string Nazwa { get; private set; }
         public int LiczbaSedziow { get; private set; }
 
-        public Typ(string nazwa, int liczba)
+        public TypGry(string nazwa, int liczba)
         {
             Nazwa = nazwa;
             LiczbaSedziow = liczba;

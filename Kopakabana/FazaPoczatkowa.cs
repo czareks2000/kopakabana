@@ -8,7 +8,7 @@ namespace Kopakabana
 {
     class FazaPoczatkowa : Rozgrywka
     {
-        public FazaPoczatkowa(List<Druzyna> druzyny, List<Osoba> sedziowie, Typ typ)
+        public FazaPoczatkowa(List<Druzyna> druzyny, List<Osoba> sedziowie, TypGry typ)
             : base(druzyny, typ)
         {
             //utworzenie spotkania każdy z każdym
@@ -22,6 +22,7 @@ namespace Kopakabana
             }
         }
 
+        //do poprawienia (trzeba ręcznie znaleść 4 druzyny o największych wynikach bo używamy dictionary zamiast sorted dictionary)
         public List<Druzyna> NajlepszeCztery()
         {
             List<Druzyna> najlepszeCztery = new List<Druzyna>(wyniki.Keys.Take(4));
