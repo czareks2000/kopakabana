@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
-    class FazaFinalowa : Rozgrywka
+    public class FazaFinalowa : Rozgrywka
     {
         public FazaFinalowa(List<Druzyna> druzyny, List<Osoba> sedziowie, TypGry typ)
             : base(druzyny, typ)
@@ -18,8 +18,10 @@ namespace Kopakabana
 
         public Spotkanie RozegrajFinal(List<Osoba> sedziowie)
         {
-            List<Druzyna> finaloweDruzyny = new List<Druzyna>(wyniki.Keys.Take(2));
+            //pobranie dwóch wygranych drużyn z tablicy wyników
+            List<Druzyna> finaloweDruzyny = new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(2).ToList();
 
+            //utworzenie finalowego spotkania
             Spotkanie final = new Spotkanie(finaloweDruzyny[0], finaloweDruzyny[1], LosujSedziow(sedziowie));
             spotkania.Add(final);
 

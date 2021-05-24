@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
-    class Spotkanie
+    public class Spotkanie
     {
         public Druzyna Druzyna1 { get; private set; }
         public Druzyna Druzyna2 { get; private set; }

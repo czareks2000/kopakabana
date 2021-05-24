@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
-    class Osoba
+    public class Osoba
     {
         public string Imie { get; private set; }
         public string Nazwisko { get; private set; }

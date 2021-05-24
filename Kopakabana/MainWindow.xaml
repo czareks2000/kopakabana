@@ -92,7 +92,9 @@
             </TabItem>
             <TabItem Header="Rozgrywka" Width="200" Height="50" FontSize="20" Margin="0" Background="#FFE5E5E5">
                 <Grid Height="803" VerticalAlignment="Bottom">
-                    <Button x:Name="btn_StartRozgrywka" Content="Rozpocznij Rozgrywkę" Margin="637,361,696,382" Click="btn_StartRozgrywka_Click"/>
+                    <Border x:Name="border_TablicaWynikow" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="703" Margin="792,68,0,0" VerticalAlignment="Top" Width="756" Background="White">
+                        <Separator x:Name="separator1_TablicaWynikow" Margin="0,-312,0,312" HorizontalAlignment="Left" Width="754"/>
+                    </Border>
                     <ListBox x:Name="listBox_spotkania" HorizontalAlignment="Left" Height="636" Margin="10,68,0,0" VerticalAlignment="Top" Width="731"/>
                     <Label x:Name="lbl_NazwaEtapu" Content="Faza Początkowa" HorizontalAlignment="Left" Margin="275,10,0,0" VerticalAlignment="Top" Height="42" Width="210" FontSize="25"/>
                     <Button x:Name="btn_WprowadzWynik" Content="Rozegraj kolejne spotkanie" Margin="224,728,1057,32" Click="btn_WprowadzWynik_Click"/>
@@ -107,9 +109,52 @@
                         </Separator.RenderTransform>
                     </Separator>
                     <Label x:Name="lbl_tablicaWynikow" Content="Tablica wyników" HorizontalAlignment="Left" Margin="1095,10,0,0" VerticalAlignment="Top" Height="51" Width="202" FontSize="25"/>
-                    <ListBox x:Name="listBox_tablicaWynikow" Margin="792,68,40,32"/>
+                    <ListBox x:Name="listBox_tablicaWynikow" Margin="792,68,40,32" HorizontalContentAlignment="Stretch">
+                        <ListBox.Template>
+                            <ControlTemplate>
+                                <DockPanel LastChildFill="True">
+                                    <Grid DockPanel.Dock="Top" Height="50">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Content="Drużyna"/>
+                                        <Label Grid.Column="1" Content="Punkty"/>
+                                    </Grid>
+                                    <ItemsPresenter/>
+                                </DockPanel>
+                            </ControlTemplate>
+                        </ListBox.Template>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Margin="2" Text="{Binding Key.Nazwa}" Grid.Column="0"/>
+                                    <TextBlock Margin="2" Text="{Binding Value}" Grid.Column="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Separator x:Name="separator2_TablicaWynikow" Height="100" Margin="816,369,70,334" RenderTransformOrigin="0.5,0.5">
+                        <Separator.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Separator.RenderTransform>
+                    </Separator>
+                    <Button x:Name="btn_StartRozgrywka" Content="Rozpocznij Rozgrywkę" Margin="637,361,696,382" Click="btn_StartRozgrywka_Click"/>
+                    <Button x:Name="btn_RozpocznijPolfinal" Content="Rozpocznij Półfinał" HorizontalAlignment="Left" Margin="247,728,0,0" VerticalAlignment="Top" Width="261" Height="43" Click="btn_RozpocznijPolfinal_Click"/>
+                    <Button x:Name="btn_RozpocznijFinal" Content="Rozpocznij Finał" HorizontalAlignment="Left" Margin="247,728,0,0" VerticalAlignment="Top" Width="261" Height="43" Click="btn_RozpocznijFinal_Click"/>
+                    <Button x:Name="btn_ZakonczRozgrywke" Content="Zakoncz Rozgrywkę" HorizontalAlignment="Left" Margin="247,728,0,0" VerticalAlignment="Top" Width="261" Height="43" Click="btn_ZakonczRozgrywke_Click"/>
                 </Grid>
             </TabItem>
+
 
 
         </TabControl>

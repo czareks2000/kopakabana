@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
-    class Druzyna
+    public class Druzyna
     {
         public string Nazwa { get; private set; }
         private List<Osoba> zawodnicy;

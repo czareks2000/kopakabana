@@ -65,6 +65,7 @@
     <Compile Include="Rozgrywka.cs" />
     <Compile Include="Spotkanie.cs" />
     <Compile Include="TypGry.cs" />
+    <Compile Include="Util.cs" />
     <Page Include="DlgSpotkanie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

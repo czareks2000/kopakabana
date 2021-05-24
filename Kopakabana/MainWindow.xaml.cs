@@ -25,17 +25,27 @@ namespace Kopakabana
         private FazaPoczatkowa fazaPoczatkowa;
         private FazaFinalowa fazaFinalowa;
         private bool czyRozgrywkaRozpoczeta = false;
+        private bool czyPolfinalRozpoczety = false;
+        private bool czyFinalRozpoczety = false;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            lbl_NazwaEtapu.Visibility = Visibility.Hidden;
-            listBox_spotkania.Visibility = Visibility.Hidden;
-            separatorRozgrywka.Visibility = Visibility.Hidden;
-            lbl_tablicaWynikow.Visibility = Visibility.Hidden;
-            listBox_tablicaWynikow.Visibility = Visibility.Hidden;
-            btn_WprowadzWynik.Visibility = Visibility.Hidden;
+            sedziowie.Add(new Osoba("1","1"));
+            sedziowie.Add(new Osoba("2","2"));
+            sedziowie.Add(new Osoba("3","3"));
+            sedziowie.Add(new Osoba("4","4"));
+            sedziowie.Add(new Osoba("5","5"));
+
+            druzyny.Add(new Druzyna("1"));
+            druzyny.Add(new Druzyna("2"));
+            druzyny.Add(new Druzyna("3"));
+            druzyny.Add(new Druzyna("4"));
+            druzyny.Add(new Druzyna("5"));
+
+            PrzelaczInterfaceRozgryki();
+
             listBox_druzyny.ItemsSource = druzyny;
             listBox_sedziowie.ItemsSource = sedziowie;
         }
@@ -72,44 +82,173 @@ namespace Kopakabana
             DlgTypGry dlg = new DlgTypGry();
             if (true == dlg.ShowDialog())
             {
-                fazaPoczatkowa = new FazaPoczatkowa(druzyny, sedziowie, (TypGry)dlg.cbx_TypGry.SelectedItem);
-
-                czyRozgrywkaRozpoczeta = true;
-                btn_StartRozgrywka.Visibility = Visibility.Hidden;
-                lbl_NazwaEtapu.Visibility = Visibility.Visible;
-                listBox_spotkania.Visibility = Visibility.Visible;
-                separatorRozgrywka.Visibility = Visibility.Visible;
-                lbl_tablicaWynikow.Visibility = Visibility.Visible;
-                listBox_tablicaWynikow.Visibility = Visibility.Visible;
-                btn_WprowadzWynik.Visibility = Visibility.Visible;
-                listBox_spotkania.ItemsSource = fazaPoczatkowa.Spotkania();
-                listBox_spotkania.Items.Refresh();
-                listBox_tablicaWynikow.ItemsSource = fazaPoczatkowa.TablicaWynikow();
-                listBox_tablicaWynikow.Items.Refresh();
+                RozpocznijRozgrywke((TypGry)dlg.cbx_TypGry.SelectedItem);
             }
-
         }
 
         private void btn_WprowadzWynik_Click(object sender, RoutedEventArgs e)
         {
-            DlgSpotkanie dlg = new DlgSpotkanie();
-            Spotkanie spotkanie = fazaPoczatkowa.KolejneSpotkanie();
-            dlg.lbl_druzyna1.Content = spotkanie.Druzyna1.Nazwa;
-            dlg.lbl_druzyna2.Content = spotkanie.Druzyna2.Nazwa;
-            List<Osoba> sedziowieSpotkania = spotkanie.GetSedziowie();
-            dlg.lbl_sedzia1.Content = sedziowieSpotkania[0].Imie + " " + sedziowieSpotkania[0].Nazwisko;
-            if (sedziowieSpotkania.Count == 3)
-            {
-                dlg.lbl_sedzia2.Content = sedziowieSpotkania[1].Imie + " " + sedziowieSpotkania[1].Nazwisko;
-                dlg.lbl_sedzia3.Content = sedziowieSpotkania[2].Imie + " " + sedziowieSpotkania[2].Nazwisko;
-            }
-            dlg.cb_wygranaDruzyna.ItemsSource = spotkanie.GetDruzyny();
+            Spotkanie spotkanie;
+            if (czyPolfinalRozpoczety)
+                spotkanie = fazaFinalowa.KolejneSpotkanie();
+            else
+                spotkanie = fazaPoczatkowa.KolejneSpotkanie();
+
+            DlgSpotkanie dlg = new DlgSpotkanie(spotkanie);
+            
             if (true == dlg.ShowDialog())
             {
-                spotkanie.Zakoncz((Druzyna)dlg.cb_wygranaDruzyna.SelectedItem);
-                fazaPoczatkowa.DodajPunkt((Druzyna)dlg.cb_wygranaDruzyna.SelectedItem);
-                listBox_spotkania.Items.Refresh();
+                WprowadzWynik(spotkanie, (Druzyna)dlg.cb_wygranaDruzyna.SelectedItem);
+
+                KolejnyEtap();
             }
+        }
+
+        private void KolejnyEtap()
+        {
+            if (czyFinalRozpoczety)
+            {
+                if (fazaFinalowa.KolejneSpotkanie() == null)
+                {
+                    btn_WprowadzWynik.Visibility = Visibility.Hidden;
+                    btn_ZakonczRozgrywke.Visibility = Visibility.Visible;
+                }
+                return;
+            }
+
+            if (czyPolfinalRozpoczety)
+            {
+                if (fazaFinalowa.KolejneSpotkanie() == null)
+                {
+                    btn_WprowadzWynik.Visibility = Visibility.Hidden;
+                    btn_RozpocznijFinal.Visibility = Visibility.Visible;
+                }
+                return;
+            }
+
+            if (fazaPoczatkowa.KolejneSpotkanie() == null)
+            {
+                btn_WprowadzWynik.Visibility = Visibility.Hidden;
+                btn_RozpocznijPolfinal.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void WprowadzWynik(Spotkanie spotkanie, Druzyna druzyna)
+        {
+            spotkanie.Zakoncz(druzyna);
+
+            fazaPoczatkowa.DodajPunkt(druzyna);
+            if(czyPolfinalRozpoczety)
+                fazaFinalowa.DodajPunkt(druzyna);
+
+            listBox_spotkania.Items.Refresh();
+            OdswiezTabliceWynikow();
+        }
+
+        private void RozpocznijRozgrywke(TypGry typGry)
+        {
+            fazaPoczatkowa = new FazaPoczatkowa(druzyny, sedziowie, typGry);
+
+            czyRozgrywkaRozpoczeta = true;
+
+            PrzelaczInterfaceRozgryki();
+
+            listBox_spotkania.ItemsSource = fazaPoczatkowa.Spotkania();
+            listBox_spotkania.Items.Refresh();
+
+            OdswiezTabliceWynikow();
+        }
+
+        private void PrzelaczInterfaceRozgryki()
+        {
+            if (czyFinalRozpoczety)
+            {
+                btn_WprowadzWynik.Visibility = Visibility.Visible;
+                btn_RozpocznijFinal.Visibility = Visibility.Hidden;
+            }
+            else if (czyPolfinalRozpoczety)
+            {
+                btn_WprowadzWynik.Visibility = Visibility.Visible;
+                btn_RozpocznijPolfinal.Visibility = Visibility.Hidden;
+            }
+            else if (czyRozgrywkaRozpoczeta)
+            {
+                btn_StartRozgrywka.Visibility = Visibility.Hidden;
+
+                lbl_NazwaEtapu.Visibility = Visibility.Visible;
+                listBox_spotkania.Visibility = Visibility.Visible;
+                btn_WprowadzWynik.Visibility = Visibility.Visible;
+
+                separatorRozgrywka.Visibility = Visibility.Visible;
+
+                border_TablicaWynikow.Visibility = Visibility.Visible;
+                separator1_TablicaWynikow.Visibility = Visibility.Visible;
+                separator2_TablicaWynikow.Visibility = Visibility.Visible;
+                lbl_tablicaWynikow.Visibility = Visibility.Visible;
+                listBox_tablicaWynikow.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btn_StartRozgrywka.Visibility = Visibility.Visible;
+
+                btn_RozpocznijPolfinal.Visibility = Visibility.Hidden;
+                btn_RozpocznijFinal.Visibility = Visibility.Hidden;
+                btn_ZakonczRozgrywke.Visibility = Visibility.Hidden;
+
+                lbl_NazwaEtapu.Visibility = Visibility.Hidden;
+                listBox_spotkania.Visibility = Visibility.Hidden;
+                btn_WprowadzWynik.Visibility = Visibility.Hidden;
+
+                separatorRozgrywka.Visibility = Visibility.Hidden;
+
+                border_TablicaWynikow.Visibility = Visibility.Hidden;
+                separator1_TablicaWynikow.Visibility = Visibility.Hidden;
+                separator2_TablicaWynikow.Visibility = Visibility.Hidden;
+                lbl_tablicaWynikow.Visibility = Visibility.Hidden;
+                listBox_tablicaWynikow.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void OdswiezTabliceWynikow()
+        {
+            listBox_tablicaWynikow.ItemsSource = fazaPoczatkowa.TablicaWynikow();
+            listBox_tablicaWynikow.Items.Refresh();
+        }
+
+        private void btn_RozpocznijPolfinal_Click(object sender, RoutedEventArgs e)
+        {
+            czyPolfinalRozpoczety = true;
+
+            fazaFinalowa = new FazaFinalowa(fazaPoczatkowa.NajlepszeCztery(), sedziowie, fazaPoczatkowa.GetTyp());
+
+            lbl_NazwaEtapu.Content = "Połfinał";
+
+            listBox_spotkania.ItemsSource = fazaFinalowa.Spotkania();
+            listBox_spotkania.Items.Refresh();
+
+            PrzelaczInterfaceRozgryki();
+        }
+
+        private void btn_RozpocznijFinal_Click(object sender, RoutedEventArgs e)
+        {
+            czyFinalRozpoczety = true;
+
+            lbl_NazwaEtapu.Content = "Finał";
+            listBox_spotkania.ItemsSource = null;
+            listBox_spotkania.Items.Add(fazaFinalowa.RozegrajFinal(sedziowie));
+
+            listBox_spotkania.Items.Refresh();
+
+            PrzelaczInterfaceRozgryki();
+        }
+
+        private void btn_ZakonczRozgrywke_Click(object sender, RoutedEventArgs e)
+        {
+            czyRozgrywkaRozpoczeta = false;
+            czyPolfinalRozpoczety = false;
+            czyFinalRozpoczety = false;
+
+            PrzelaczInterfaceRozgryki();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
-    abstract class Rozgrywka
+    public abstract class Rozgrywka
     {
         protected List<Spotkanie> spotkania;
         protected Dictionary<Druzyna, int> wyniki;
@@ -19,28 +19,17 @@ namespace Kopakabana
 
             typGry = typ;
 
+            //utworzenie tablicy wyników i przypisanie wartości 0 każdej drużynie
             foreach (var druzyna in druzyny)
             {
                 wyniki.Add(druzyna, 0);
             }
         }
 
-        public Dictionary<Druzyna, int> TablicaWynikow()
+        //zwraca posortowaną tablice wyników
+        public IOrderedEnumerable<KeyValuePair<Druzyna, int>> TablicaWynikow()
         {
-            return wyniki;
-        }
-
-        public List<Spotkanie> ZakonczoneSpotkania()
-        {
-            List<Spotkanie> zakonczone = new List<Spotkanie>();
-
-            foreach (var spotkanie in spotkania)
-            {
-                if (spotkanie.CzyZakonczone)
-                    zakonczone.Add(spotkanie);
-            }
-
-            return zakonczone;
+            return from entry in wyniki orderby entry.Value descending select entry;
         }
 
         public List<Spotkanie> Spotkania()
@@ -48,6 +37,7 @@ namespace Kopakabana
             return spotkania;
         }
 
+        //funkcja zwracająca kolejne nie rozegrane spotkanie
         public Spotkanie KolejneSpotkanie()
         {
             foreach (var spotkanie in spotkania)
@@ -75,11 +65,10 @@ namespace Kopakabana
         protected List<Osoba> LosujSedziow(List<Osoba> wszyscySedziowie)
         {
             //tworzymy HashSet losowych indekesów bez powtórzeń
-            Random rnd = new Random();
             HashSet<int> wylosowaneIndeksy = new HashSet<int>();
             while(wylosowaneIndeksy.Count < typGry.LiczbaSedziow)
             {
-                wylosowaneIndeksy.Add(rnd.Next(0, wszyscySedziowie.Count));
+                wylosowaneIndeksy.Add(Util.GetRandom(0, wszyscySedziowie.Count));
             }
 
             //tworzymi liste sedziow o wylosowanych wczesniej indeksach
@@ -91,5 +80,6 @@ namespace Kopakabana
 
             return sedziowie;
         }
+
     }
 }
