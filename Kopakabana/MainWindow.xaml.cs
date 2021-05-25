@@ -250,5 +250,15 @@ namespace Kopakabana
 
             PrzelaczInterfaceRozgryki();
         }
+
+        private void btn_save_Click(object sender, RoutedEventArgs e)
+        {
+            //zapis stanu do pliku
+        }
+
+        private void btn_load_Click(object sender, RoutedEventArgs e)
+        {
+            //odczyt stanu z pliku
+        }
     }
 }

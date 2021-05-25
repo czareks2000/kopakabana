@@ -158,7 +158,7 @@
 
 
         </TabControl>
-        <Button x:Name="btn_save" Content="Zapisz stan" HorizontalAlignment="Left" Margin="1331,15,0,0" VerticalAlignment="Top" Width="100" Height="25"/>
-        <Button x:Name="btn_load" Content="Wczytaj stan" HorizontalAlignment="Left" Margin="1459,15,0,0" VerticalAlignment="Top" Width="100" Height="25"/>
+        <Button x:Name="btn_save" Content="Zapisz stan" HorizontalAlignment="Left" Margin="1331,15,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="btn_save_Click"/>
+        <Button x:Name="btn_load" Content="Wczytaj stan" HorizontalAlignment="Left" Margin="1459,15,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="btn_load_Click"/>
     </Grid>
 </Window>
