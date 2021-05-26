@@ -152,6 +152,7 @@ namespace Kopakabana
             czyRozgrywkaRozpoczeta = true;
 
             PrzelaczInterfaceRozgryki();
+            listBox_spotkania.Items.Clear();
 
             listBox_spotkania.ItemsSource = fazaPoczatkowa.Spotkania();
             listBox_spotkania.Items.Refresh();
