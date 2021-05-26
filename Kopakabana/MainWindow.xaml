@@ -96,11 +96,11 @@
                     <Separator x:Name="separator1_Sedziowie" Height="100" Margin="10,-1,712,704"/>
                     <GroupBox x:Name="groupBox_sedziowie" Header="" Margin="944,270,42,273" Background="White" BorderBrush="Black">
                         <Grid>
-                            <TextBox x:Name="tbx_ImieSedzia" HorizontalAlignment="Center" Height="27" Margin="10,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="495" RenderTransformOrigin="0.478,0.484" BorderBrush="Black"/>
-                            <TextBox x:Name="tbx_NazwiskoSedzia" HorizontalAlignment="Left" Height="31" Margin="55,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="495" BorderBrush="Black"/>
+                            <TextBox x:Name="tbx_ImieSedzia" HorizontalAlignment="Center" Height="27" Margin="10,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="495" RenderTransformOrigin="0.478,0.484" BorderBrush="Black" TextChanged="tbx_ImieSedzia_TextChanged"/>
+                            <TextBox x:Name="tbx_NazwiskoSedzia" HorizontalAlignment="Left" Height="31" Margin="55,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="495" BorderBrush="Black" TextChanged="tbx_NazwiskoSedzia_TextChanged"/>
                             <Label x:Name="lbl_ImieSedzia" Content="Imie:" HorizontalAlignment="Left" Margin="55,0,0,0" VerticalAlignment="Top"/>
                             <Label x:Name="lbl_NazwiskoSedzia" Content="Nazwisko:" HorizontalAlignment="Left" Margin="55,73,0,0" VerticalAlignment="Top"/>
-                            <Button x:Name="btn_DodajSedziego" Content="Dodaj" HorizontalAlignment="Center" Margin="242,163,236,23" VerticalAlignment="Center" Width="112" Height="40" Background="#FFDDDDDD" BorderBrush="Black" Click="btn_DodajSedziego_Click"/>
+                            <Button x:Name="btn_DodajSedziego" Content="Dodaj" HorizontalAlignment="Center" Margin="242,163,236,23" VerticalAlignment="Center" Width="112" Height="40" Background="#FFDDDDDD" BorderBrush="Black" Click="btn_DodajSedziego_Click" IsEnabled="False"/>
                         </Grid>
                     </GroupBox>
                     <Button x:Name="btn_UsunSedziego" Content="Usun" HorizontalAlignment="Left" Margin="395,752,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.627,-0.258" Click="btn_UsunSedziego_Click"/>
@@ -136,9 +136,9 @@
                     </ListBox>
                     <GroupBox x:Name="groupBox_druzyny" Header="" Margin="944,270,42,341" Background="White" BorderBrush="Black">
                         <Grid>
-                            <TextBox x:Name="tbx_NazwaDruzyna" HorizontalAlignment="Left" Height="31" Margin="55,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="495" BorderBrush="Black"/>
+                            <TextBox x:Name="tbx_NazwaDruzyna" HorizontalAlignment="Left" Height="31" Margin="55,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="495" BorderBrush="Black" TextChanged="tbx_NazwaDruzyna_TextChanged"/>
                             <Label x:Name="lbl_NazwaDruzyna" Content="Nazwa Drużyny:" HorizontalAlignment="Left" Margin="55,0,0,0" VerticalAlignment="Top"/>
-                            <Button x:Name="btn_DodajDruzyne" Content="Dodaj" HorizontalAlignment="Center" Margin="242,0,236,14" VerticalAlignment="Bottom" Width="112" Height="40" Background="#FFDDDDDD" BorderBrush="Black" Click="btn_DodajDruzyne_Click"/>
+                            <Button x:Name="btn_DodajDruzyne" Content="Dodaj" HorizontalAlignment="Center" Margin="242,0,236,14" VerticalAlignment="Bottom" Width="112" Height="40" Background="#FFDDDDDD" BorderBrush="Black" Click="btn_DodajDruzyne_Click" IsEnabled="False"/>
                         </Grid>
                     </GroupBox>
                     <Button x:Name="btn_UsunDruzyne" Content="Usun" HorizontalAlignment="Left" Margin="395,752,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.627,-0.258" Click="btn_UsunDruzyne_Click"/>
@@ -159,18 +159,19 @@
                 <Grid Height="803" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="209*"/>
-                        <ColumnDefinition Width="1380*"/>
+                        <ColumnDefinition Width="91*"/>
+                        <ColumnDefinition Width="1288*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="350*"/>
                         <RowDefinition Height="453*"/>
                     </Grid.RowDefinitions>
-                    <Border x:Name="border_TablicaWynikow" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="703" Margin="583.5,68,0,0" VerticalAlignment="Top" Width="756" Background="White" Grid.RowSpan="2" Grid.Column="1">
+                    <Border x:Name="border_TablicaWynikow" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="703" Margin="492,68,0,0" VerticalAlignment="Top" Width="756" Background="White" Grid.RowSpan="2" Grid.Column="2">
                         <Separator x:Name="separator1_TablicaWynikow" Margin="0,-312,0,312" HorizontalAlignment="Left" Width="754"/>
                     </Border>
-                    <Border x:Name="border_Spotkania" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="642" Margin="17,66,0,0" VerticalAlignment="Top" Width="739" Background="White" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Border x:Name="border_Spotkania" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="642" Margin="17,66,0,0" VerticalAlignment="Top" Width="739" Background="White" Grid.RowSpan="2" Grid.ColumnSpan="3">
                     </Border>
-                    <ListBox x:Name="listBox_spotkania" HorizontalContentAlignment="Stretch" Height="637"  VerticalAlignment="Top" Margin="18,68,834,0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <ListBox x:Name="listBox_spotkania" HorizontalContentAlignment="Stretch" Height="637"  VerticalAlignment="Top" Margin="18,68,834,0" Grid.RowSpan="2" Grid.ColumnSpan="3">
                         <ListBox.Template>
                             <ControlTemplate>
                                 <DockPanel LastChildFill="True">
@@ -214,10 +215,10 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Separator x:Name="separator1_Spotkania" Height="100" Margin="19,57,833,193" Grid.ColumnSpan="2"/>
-                    <Label x:Name="lbl_NazwaEtapu" Content="Faza Początkowa" HorizontalAlignment="Left" Margin="66.5,10,0,0" VerticalAlignment="Top" Height="42" Width="210" FontSize="25" Grid.Column="1"/>
-                    <Button x:Name="btn_WprowadzWynik" Content="Rozegraj kolejne spotkanie" Margin="15.5,378,1057,32" Click="btn_WprowadzWynik_Click" Grid.Row="1" Grid.Column="1"/>
-                    <Separator x:Name="separatorRozgrywka" Margin="155.5,42,416,393" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Grid.Column="1">
+                    <Separator x:Name="separator1_Spotkania" Height="100" Margin="19,57,833,193" Grid.ColumnSpan="3"/>
+                    <Label x:Name="lbl_NazwaEtapu" Content="Faza Początkowa" HorizontalAlignment="Left" Margin="67,10,0,0" VerticalAlignment="Top" Height="42" Width="210" FontSize="25" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btn_WprowadzWynik" Content="Rozegraj kolejne spotkanie" Margin="15,378,1057,32" Click="btn_WprowadzWynik_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Separator x:Name="separatorRozgrywka" Margin="64,42,416,393" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Grid.Column="2">
                         <Separator.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -227,8 +228,8 @@
                             </TransformGroup>
                         </Separator.RenderTransform>
                     </Separator>
-                    <Label x:Name="lbl_tablicaWynikow" Content="Tablica wyników" HorizontalAlignment="Left" Margin="886.5,10,0,0" VerticalAlignment="Top" Height="51" Width="202" FontSize="25" Grid.Column="1"/>
-                    <ListBox x:Name="listBox_tablicaWynikow" Margin="587.5,69,36,32" HorizontalContentAlignment="Stretch" Grid.RowSpan="2" Grid.Column="1">
+                    <Label x:Name="lbl_tablicaWynikow" Content="Tablica wyników" HorizontalAlignment="Left" Margin="796,10,0,0" VerticalAlignment="Top" Height="51" Width="202" FontSize="25" Grid.Column="2"/>
+                    <ListBox x:Name="listBox_tablicaWynikow" Margin="496,69,36,32" HorizontalContentAlignment="Stretch" Grid.RowSpan="2" Grid.Column="2">
                         <ListBox.Template>
                             <ControlTemplate>
                                 <DockPanel LastChildFill="True">
@@ -257,7 +258,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Separator x:Name="separator2_TablicaWynikow" Height="100" Margin="607.5,19,70,334" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Grid.Column="1">
+                    <Separator x:Name="separator2_TablicaWynikow" Height="100" Margin="516,19,70,334" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Grid.Column="2">
                         <Separator.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -267,11 +268,11 @@
                             </TransformGroup>
                         </Separator.RenderTransform>
                     </Separator>
-                    <Button x:Name="btn_StartRozgrywka" Content="Rozpocznij Rozgrywkę" Margin="428.5,11,696,382" Click="btn_StartRozgrywka_Click" Grid.Row="1" Grid.Column="1"/>
-                    <Button x:Name="btn_RozpocznijPolfinal" Content="Rozpocznij Półfinał" HorizontalAlignment="Left" Margin="38.5,378,0,0" VerticalAlignment="Top" Width="261" Height="43" Click="btn_RozpocznijPolfinal_Click" Grid.Row="1" Grid.Column="1"/>
-                    <Button x:Name="btn_RozpocznijFinal" Content="Rozpocznij Finał" HorizontalAlignment="Left" Margin="38.5,378,0,0" VerticalAlignment="Top" Width="261" Height="43" Click="btn_RozpocznijFinal_Click" Grid.Row="1" Grid.Column="1"/>
-                    <Button x:Name="btn_ZakonczRozgrywke" Content="Zakoncz Rozgrywkę" HorizontalAlignment="Left" Margin="38.5,378,0,0" VerticalAlignment="Top" Width="261" Height="43" Click="btn_ZakonczRozgrywke_Click" Grid.Row="1" Grid.Column="1"/>
-                    <Separator x:Name="separator2_Spotkania" Height="100" Margin="-61,337,1009,366" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Button x:Name="btn_StartRozgrywka" Content="Rozpocznij Rozgrywkę" Margin="338,11,696,382" Click="btn_StartRozgrywka_Click" Grid.Row="1" Grid.Column="2"/>
+                    <Button x:Name="btn_RozpocznijPolfinal" Content="Rozpocznij Półfinał" HorizontalAlignment="Left" Margin="39,378,0,0" VerticalAlignment="Top" Width="260" Height="43" Click="btn_RozpocznijPolfinal_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btn_RozpocznijFinal" Content="Rozpocznij Finał" HorizontalAlignment="Left" Margin="39,378,0,0" VerticalAlignment="Top" Width="260" Height="43" Click="btn_RozpocznijFinal_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btn_ZakonczRozgrywke" Content="Zakoncz Rozgrywkę" HorizontalAlignment="Left" Margin="39,378,0,0" VerticalAlignment="Top" Width="260" Height="43" Click="btn_ZakonczRozgrywke_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Separator x:Name="separator2_Spotkania" Height="100" Margin="-61,337,1009,366" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" Grid.ColumnSpan="3">
                         <Separator.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -281,7 +282,7 @@
                             </TransformGroup>
                         </Separator.RenderTransform>
                     </Separator>
-                    <Separator x:Name="separator3_Spotkania" Height="100" Margin="173,337,773,366" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Separator x:Name="separator3_Spotkania" Height="100" Margin="173,337,773,366" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" Grid.ColumnSpan="3">
                         <Separator.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>

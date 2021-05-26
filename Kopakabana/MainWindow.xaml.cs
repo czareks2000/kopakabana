@@ -270,5 +270,29 @@ namespace Kopakabana
         {
             //odczyt stanu z pliku
         }
+
+        private void tbx_NazwaDruzyna_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(tbx_NazwaDruzyna.Text == "")
+                btn_DodajDruzyne.IsEnabled = false;
+            else
+                btn_DodajDruzyne.IsEnabled = true;
+        }
+
+        private void tbx_ImieSedzia_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tbx_ImieSedzia.Text == "" || tbx_NazwiskoSedzia.Text == "")
+                btn_DodajSedziego.IsEnabled = false;
+            else
+                btn_DodajSedziego.IsEnabled = true;
+        }
+
+        private void tbx_NazwiskoSedzia_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tbx_ImieSedzia.Text == "" || tbx_NazwiskoSedzia.Text == "")
+                btn_DodajSedziego.IsEnabled = false;
+            else
+                btn_DodajSedziego.IsEnabled = true;
+        }
     }
 }
