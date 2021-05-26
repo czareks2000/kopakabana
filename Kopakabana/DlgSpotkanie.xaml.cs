@@ -46,5 +46,10 @@ namespace Kopakabana
         {
             DialogResult = true;
         }
+
+        private void cb_wygranaDruzyna_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

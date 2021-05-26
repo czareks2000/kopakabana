@@ -35,5 +35,15 @@ namespace Kopakabana
         {
             DialogResult = true;
         }
+
+        private void cbx_TypGry_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void btn_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

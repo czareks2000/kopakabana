@@ -175,9 +175,14 @@ namespace Kopakabana
             {
                 btn_StartRozgrywka.Visibility = Visibility.Hidden;
 
+                border_Spotkania.Visibility = Visibility.Visible;
+                separator1_Spotkania.Visibility = Visibility.Visible;
+                separator2_Spotkania.Visibility = Visibility.Visible;
+                separator3_Spotkania.Visibility = Visibility.Visible;
                 lbl_NazwaEtapu.Visibility = Visibility.Visible;
                 listBox_spotkania.Visibility = Visibility.Visible;
                 btn_WprowadzWynik.Visibility = Visibility.Visible;
+
 
                 separatorRozgrywka.Visibility = Visibility.Visible;
 
@@ -186,6 +191,7 @@ namespace Kopakabana
                 separator2_TablicaWynikow.Visibility = Visibility.Visible;
                 lbl_tablicaWynikow.Visibility = Visibility.Visible;
                 listBox_tablicaWynikow.Visibility = Visibility.Visible;
+
             }
             else
             {
@@ -195,6 +201,10 @@ namespace Kopakabana
                 btn_RozpocznijFinal.Visibility = Visibility.Hidden;
                 btn_ZakonczRozgrywke.Visibility = Visibility.Hidden;
 
+                border_Spotkania.Visibility = Visibility.Hidden;
+                separator1_Spotkania.Visibility = Visibility.Hidden;
+                separator2_Spotkania.Visibility = Visibility.Hidden;
+                separator3_Spotkania.Visibility = Visibility.Hidden;
                 lbl_NazwaEtapu.Visibility = Visibility.Hidden;
                 listBox_spotkania.Visibility = Visibility.Hidden;
                 btn_WprowadzWynik.Visibility = Visibility.Hidden;
