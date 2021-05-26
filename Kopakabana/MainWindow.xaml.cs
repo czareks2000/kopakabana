@@ -152,7 +152,6 @@ namespace Kopakabana
             czyRozgrywkaRozpoczeta = true;
 
             PrzelaczInterfaceRozgryki();
-            listBox_spotkania.Items.Clear();
 
             listBox_spotkania.ItemsSource = fazaPoczatkowa.Spotkania();
             listBox_spotkania.Items.Refresh();
@@ -258,6 +257,7 @@ namespace Kopakabana
             czyRozgrywkaRozpoczeta = false;
             czyPolfinalRozpoczety = false;
             czyFinalRozpoczety = false;
+            listBox_spotkania.Items.Clear();
 
             PrzelaczInterfaceRozgryki();
         }
