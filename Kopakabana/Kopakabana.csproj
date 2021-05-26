@@ -60,6 +60,12 @@
     <Compile Include="DlgTypGry.xaml.cs">
       <DependentUpon>DlgTypGry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\BrakDruzynException.cs" />
+    <Compile Include="Exceptions\NieprawidlowaDruzynaException.cs" />
+    <Compile Include="Exceptions\PustaListaSedziowException.cs" />
+    <Compile Include="Exceptions\ZakonczoneSpotkanieException.cs" />
+    <Compile Include="Exceptions\ZbytMalaLiczbaDruzynException.cs" />
+    <Compile Include="Exceptions\ZbytMalaLiczbaSedziowException.cs" />
     <Compile Include="FazaFinalowa.cs" />
     <Compile Include="FazaPoczatkowa.cs" />
     <Compile Include="Rozgrywka.cs" />

@@ -25,7 +25,10 @@ namespace Kopakabana
         public void Zakoncz(Druzyna druzyna)
         {
             if (druzyna != Druzyna1 && druzyna != Druzyna2)
-                throw new Exception("Podana druzyna nie nalezy do spotkania");
+                throw new NieprawidlowaDruzynaException("Podana druzyna nie nalezy do spotkania");
+
+            if (CzyZakonczone == true)
+                throw new ZakonczoneSpotkanieException("Podane spotkanie jest zakonczone");
 
             CzyZakonczone = true;
             WygranaDruzyna = druzyna;

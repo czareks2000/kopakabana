@@ -52,7 +52,7 @@ namespace Kopakabana
         public void DodajPunkt(Druzyna druzyna)
         {
             if (!wyniki.ContainsKey(druzyna))
-                throw new Exception("Tablica wynikow nie zawiera podanej druzyny");
+                throw new NieprawidlowaDruzynaException("Tablica wynikow nie zawiera podanej druzyny");
 
             wyniki[druzyna] += 1;
         }
@@ -64,6 +64,12 @@ namespace Kopakabana
 
         protected List<Osoba> LosujSedziow(List<Osoba> wszyscySedziowie)
         {
+            if (wszyscySedziowie.Count == 0)
+                throw new PustaListaSedziowException("Lista sedziow jest pusta");
+
+            if (typGry.LiczbaSedziow > wszyscySedziowie.Count)
+                throw new ZbytMalaLiczbaSedziowException("Zbyt mala liczba sedziow aby rozegrac spotkanie w grze: ", typGry.Nazwa);
+
             //tworzymy HashSet losowych indekesów bez powtórzeń
             HashSet<int> wylosowaneIndeksy = new HashSet<int>();
             while(wylosowaneIndeksy.Count < typGry.LiczbaSedziow)

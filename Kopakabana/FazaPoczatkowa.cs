@@ -11,6 +11,9 @@ namespace Kopakabana
         public FazaPoczatkowa(List<Druzyna> druzyny, List<Osoba> sedziowie, TypGry typ)
             : base(druzyny, typ)
         {
+            if (druzyny.Count == 0)
+                throw new BrakDruzynException("Nie dodano druzyn do rozgrywki");
+
             //utworzenie spotkania każdy z każdym
             for (int i=0; i < druzyny.Count; i++)
             {
@@ -27,6 +30,9 @@ namespace Kopakabana
 
         public List<Druzyna> NajlepszeCztery()
         {
+            if (new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(4).ToList().Count < 4)
+                throw new ZbytMalaLiczbaDruzynException("Druzyn jest mniej niz 4");
+
             List<Druzyna> najlepszeCztery = new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(4).ToList();
 
             return najlepszeCztery;

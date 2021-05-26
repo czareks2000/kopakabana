@@ -18,6 +18,9 @@ namespace Kopakabana
 
         public Spotkanie RozegrajFinal(List<Osoba> sedziowie)
         {
+            if(new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(2).ToList().Count < 2)
+                throw new ZbytMalaLiczbaDruzynException("Druzyn jest mniej niz 2");
+
             //pobranie dwóch wygranych drużyn z tablicy wyników
             List<Druzyna> finaloweDruzyny = new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(2).ToList();
 
