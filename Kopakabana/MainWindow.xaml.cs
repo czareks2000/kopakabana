@@ -32,17 +32,17 @@ namespace Kopakabana
         {
             InitializeComponent();
 
-            sedziowie.Add(new Osoba("1","1"));
-            sedziowie.Add(new Osoba("2","2"));
-            sedziowie.Add(new Osoba("3","3"));
-            sedziowie.Add(new Osoba("4","4"));
-            sedziowie.Add(new Osoba("5","5"));
+            sedziowie.Add(new Osoba("Jan","Kowalski"));
+            sedziowie.Add(new Osoba("Joachim","Mazur"));
+            sedziowie.Add(new Osoba("Allan","Wojciechowski"));
+            sedziowie.Add(new Osoba("Kryspin","Szymczak"));
+            sedziowie.Add(new Osoba("Mirosław","Wysocki"));
 
-            druzyny.Add(new Druzyna("1"));
-            druzyny.Add(new Druzyna("2"));
-            druzyny.Add(new Druzyna("3"));
-            druzyny.Add(new Druzyna("4"));
-            druzyny.Add(new Druzyna("5"));
+            druzyny.Add(new Druzyna("Alfa"));
+            druzyny.Add(new Druzyna("Beta"));
+            druzyny.Add(new Druzyna("Gamma"));
+            druzyny.Add(new Druzyna("Delta"));
+            druzyny.Add(new Druzyna("Bravo"));
 
             PrzelaczInterfaceRozgryki();
 
@@ -99,7 +99,6 @@ namespace Kopakabana
             if (true == dlg.ShowDialog())
             {
                 WprowadzWynik(spotkanie, (Druzyna)dlg.cb_wygranaDruzyna.SelectedItem);
-
                 KolejnyEtap();
             }
         }
@@ -137,9 +136,24 @@ namespace Kopakabana
         {
             spotkanie.Zakoncz(druzyna);
 
-            fazaPoczatkowa.DodajPunkt(druzyna);
             if(czyPolfinalRozpoczety)
+            {
                 fazaFinalowa.DodajPunkt(druzyna);
+                if (czyFinalRozpoczety)
+                {
+                    lbl_zwyciezca.Content = druzyna.Nazwa;
+                }
+                else
+                {
+                    if (lbl_FinalD1.Content.ToString() == "")
+                        lbl_FinalD1.Content = druzyna.Nazwa;
+                    else
+                        lbl_FinalD2.Content = druzyna.Nazwa;
+                }
+                    
+            }  
+            else
+                fazaPoczatkowa.DodajPunkt(druzyna);
 
             listBox_spotkania.Items.Refresh();
             OdswiezTabliceWynikow();
@@ -147,86 +161,91 @@ namespace Kopakabana
 
         private void RozpocznijRozgrywke(TypGry typGry)
         {
-            fazaPoczatkowa = new FazaPoczatkowa(druzyny, sedziowie, typGry);
-
             czyRozgrywkaRozpoczeta = true;
 
-            PrzelaczInterfaceRozgryki();
+            fazaPoczatkowa = new FazaPoczatkowa(druzyny, sedziowie, typGry);
 
             listBox_spotkania.ItemsSource = fazaPoczatkowa.Spotkania();
             listBox_spotkania.Items.Refresh();
 
             OdswiezTabliceWynikow();
+
+            PrzelaczInterfaceRozgryki();
         }
 
         private void PrzelaczInterfaceRozgryki()
         {
             if (czyFinalRozpoczety)
-            {
-                btn_WprowadzWynik.Visibility = Visibility.Visible;
-                btn_RozpocznijFinal.Visibility = Visibility.Hidden;
-            }
+                InterfaceFinal();
             else if (czyPolfinalRozpoczety)
-            {
-                btn_WprowadzWynik.Visibility = Visibility.Visible;
-                btn_RozpocznijPolfinal.Visibility = Visibility.Hidden;
-            }
+                InterfacePolFinal();
             else if (czyRozgrywkaRozpoczeta)
-            {
-                btn_StartRozgrywka.Visibility = Visibility.Hidden;
-
-                btn_UsunDruzyne.IsEnabled = false;
-                btn_UsunSedziego.IsEnabled = false;
-                groupBox_druzyny.Visibility = Visibility.Hidden;
-                groupBox_sedziowie.Visibility = Visibility.Hidden;
-
-                border_Spotkania.Visibility = Visibility.Visible;
-                separator1_Spotkania.Visibility = Visibility.Visible;
-                separator2_Spotkania.Visibility = Visibility.Visible;
-                separator3_Spotkania.Visibility = Visibility.Visible;
-                lbl_NazwaEtapu.Visibility = Visibility.Visible;
-                listBox_spotkania.Visibility = Visibility.Visible;
-                btn_WprowadzWynik.Visibility = Visibility.Visible;
-
-
-                separatorRozgrywka.Visibility = Visibility.Visible;
-
-                border_TablicaWynikow.Visibility = Visibility.Visible;
-                separator1_TablicaWynikow.Visibility = Visibility.Visible;
-                separator2_TablicaWynikow.Visibility = Visibility.Visible;
-                lbl_tablicaWynikow.Visibility = Visibility.Visible;
-                listBox_tablicaWynikow.Visibility = Visibility.Visible;
-
-            }
+                WlaczInterfaceRozgrywka();
             else
-            {
-                btn_StartRozgrywka.Visibility = Visibility.Visible;
+                WylaczIngerfaceRozgrywka();
+        }
 
-                btn_UsunDruzyne.IsEnabled = true;
-                btn_UsunSedziego.IsEnabled = true;
-                groupBox_druzyny.Visibility = Visibility.Visible;
-                groupBox_sedziowie.Visibility = Visibility.Visible;
+        private void InterfaceFinal()
+        {
+            btn_WprowadzWynik.Visibility = Visibility.Visible;
+            btn_RozpocznijFinal.Visibility = Visibility.Hidden;
+        }
 
-                btn_RozpocznijPolfinal.Visibility = Visibility.Hidden;
-                btn_RozpocznijFinal.Visibility = Visibility.Hidden;
-                btn_ZakonczRozgrywke.Visibility = Visibility.Hidden;
+        private void InterfacePolFinal()
+        {
+            btn_WprowadzWynik.Visibility = Visibility.Visible;
+            btn_RozpocznijPolfinal.Visibility = Visibility.Hidden;
+            border_FazaFinalowa.Visibility = Visibility.Visible;
+        }
 
-                border_Spotkania.Visibility = Visibility.Hidden;
-                separator1_Spotkania.Visibility = Visibility.Hidden;
-                separator2_Spotkania.Visibility = Visibility.Hidden;
-                separator3_Spotkania.Visibility = Visibility.Hidden;
-                lbl_NazwaEtapu.Visibility = Visibility.Hidden;
-                listBox_spotkania.Visibility = Visibility.Hidden;
-                btn_WprowadzWynik.Visibility = Visibility.Hidden;
+        private void WlaczInterfaceRozgrywka()
+        {
+            btn_StartRozgrywka.Visibility = Visibility.Hidden;
 
-                separatorRozgrywka.Visibility = Visibility.Hidden;
+            btn_UsunDruzyne.IsEnabled = false;
+            btn_UsunSedziego.IsEnabled = false;
+            groupBox_druzyny.Visibility = Visibility.Hidden;
+            groupBox_sedziowie.Visibility = Visibility.Hidden;
 
-                border_TablicaWynikow.Visibility = Visibility.Hidden;
-                separator1_TablicaWynikow.Visibility = Visibility.Hidden;
-                separator2_TablicaWynikow.Visibility = Visibility.Hidden;
-                lbl_tablicaWynikow.Visibility = Visibility.Hidden;
-                listBox_tablicaWynikow.Visibility = Visibility.Hidden;
-            }
+            lbl_NazwaEtapu.Visibility = Visibility.Visible;
+
+            border_Spotkania.Visibility = Visibility.Visible;
+
+            btn_WprowadzWynik.Visibility = Visibility.Visible;
+            btn_Podglad.Visibility = Visibility.Visible;
+
+            separatorRozgrywka.Visibility = Visibility.Visible;
+
+            lbl_tablicaWynikow.Visibility = Visibility.Visible;
+            border_TablicaWynikow.Visibility = Visibility.Visible;
+        }
+
+        private void WylaczIngerfaceRozgrywka()
+        {
+            btn_StartRozgrywka.Visibility = Visibility.Visible;
+
+            btn_UsunDruzyne.IsEnabled = true;
+            btn_UsunSedziego.IsEnabled = true;
+            groupBox_druzyny.Visibility = Visibility.Visible;
+            groupBox_sedziowie.Visibility = Visibility.Visible;
+
+            btn_RozpocznijPolfinal.Visibility = Visibility.Hidden;
+            btn_RozpocznijFinal.Visibility = Visibility.Hidden;
+            btn_ZakonczRozgrywke.Visibility = Visibility.Hidden;
+
+            lbl_NazwaEtapu.Visibility = Visibility.Hidden;
+
+            border_Spotkania.Visibility = Visibility.Hidden;
+
+            btn_WprowadzWynik.Visibility = Visibility.Hidden;
+            btn_Podglad.Visibility = Visibility.Hidden;
+
+            separatorRozgrywka.Visibility = Visibility.Hidden;
+
+            lbl_tablicaWynikow.Visibility = Visibility.Hidden;
+            border_TablicaWynikow.Visibility = Visibility.Hidden;
+
+            border_FazaFinalowa.Visibility = Visibility.Hidden;
         }
 
         private void OdswiezTabliceWynikow()
@@ -238,10 +257,16 @@ namespace Kopakabana
         private void btn_RozpocznijPolfinal_Click(object sender, RoutedEventArgs e)
         {
             czyPolfinalRozpoczety = true;
-
-            fazaFinalowa = new FazaFinalowa(fazaPoczatkowa.NajlepszeCztery(), sedziowie, fazaPoczatkowa.GetTyp());
-
             lbl_NazwaEtapu.Content = "Połfinał";
+
+            List<Druzyna> najlepszeCztery = fazaPoczatkowa.NajlepszeCztery();
+
+            fazaFinalowa = new FazaFinalowa(najlepszeCztery, sedziowie, fazaPoczatkowa.GetTyp());
+
+            lbl_PolfinalD1.Content = najlepszeCztery[0];
+            lbl_PolfinalD2.Content = najlepszeCztery[1];
+            lbl_PolfinalD3.Content = najlepszeCztery[2];
+            lbl_PolfinalD4.Content = najlepszeCztery[3];
 
             listBox_spotkania.ItemsSource = fazaFinalowa.Spotkania();
             listBox_spotkania.Items.Refresh();
@@ -252,11 +277,12 @@ namespace Kopakabana
         private void btn_RozpocznijFinal_Click(object sender, RoutedEventArgs e)
         {
             czyFinalRozpoczety = true;
-
             lbl_NazwaEtapu.Content = "Finał";
-            listBox_spotkania.ItemsSource = null;
-            listBox_spotkania.Items.Add(fazaFinalowa.RozegrajFinal(sedziowie));
 
+            Spotkanie spotkanie = fazaFinalowa.RozegrajFinal(sedziowie);
+
+            listBox_spotkania.ItemsSource = null;
+            listBox_spotkania.Items.Add(spotkanie);
             listBox_spotkania.Items.Refresh();
 
             PrzelaczInterfaceRozgryki();
@@ -270,16 +296,6 @@ namespace Kopakabana
             listBox_spotkania.Items.Clear();
 
             PrzelaczInterfaceRozgryki();
-        }
-
-        private void btn_save_Click(object sender, RoutedEventArgs e)
-        {
-            //zapis stanu do pliku
-        }
-
-        private void btn_load_Click(object sender, RoutedEventArgs e)
-        {
-            //odczyt stanu z pliku
         }
 
         private void tbx_NazwaDruzyna_TextChanged(object sender, TextChangedEventArgs e)
@@ -304,6 +320,30 @@ namespace Kopakabana
                 btn_DodajSedziego.IsEnabled = false;
             else
                 btn_DodajSedziego.IsEnabled = true;
+        }
+
+        private void btn_Podglad_Click(object sender, RoutedEventArgs e)
+        {
+            Spotkanie spotkanie = (Spotkanie)listBox_spotkania.SelectedItem;
+
+            DlgSpotkanie dlg = new DlgSpotkanie(spotkanie, true);
+
+            dlg.ShowDialog();
+        }
+
+        private void listBox_spotkania_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btn_Podglad.IsEnabled = true;
+        }
+
+        private void btn_save_Click(object sender, RoutedEventArgs e)
+        {
+            //zapis stanu do pliku
+        }
+
+        private void btn_load_Click(object sender, RoutedEventArgs e)
+        {
+            //odczyt stanu z pliku
         }
     }
 }

@@ -30,7 +30,7 @@
                             <Setter Property="Text" Value="Nie rozegrane" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding CzyZakonczone}" Value="True">
-                                    <Setter Property="Text" Value="Zakonczone" />
+                                    <Setter Property="Text" Value="Zakończone" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -170,59 +170,78 @@
                         <RowDefinition Height="350*"/>
                         <RowDefinition Height="453*"/>
                     </Grid.RowDefinitions>
-                    <Border x:Name="border_TablicaWynikow" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="703" Margin="492,68,0,0" VerticalAlignment="Top" Width="756" Background="White" Grid.RowSpan="2" Grid.Column="2">
-                        <Separator x:Name="separator1_TablicaWynikow" Margin="0,-312,0,312" HorizontalAlignment="Left" Width="754"/>
-                    </Border>
                     <Border x:Name="border_Spotkania" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="642" Margin="17,66,0,0" VerticalAlignment="Top" Width="739" Background="White" Grid.RowSpan="2" Grid.ColumnSpan="3">
+                        <Grid>
+                            <ListBox x:Name="listBox_spotkania" HorizontalContentAlignment="Stretch" Height="637"  VerticalAlignment="Top"  Grid.RowSpan="2" Grid.ColumnSpan="3" SelectionChanged="listBox_spotkania_SelectionChanged">
+                                <ListBox.Template>
+                                    <ControlTemplate>
+                                        <DockPanel LastChildFill="True">
+                                            <Grid DockPanel.Dock="Top" Height="50">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Column="0" Content="Drużyna1"/>
+                                                <Label Grid.Column="1" Content="Drużyna2"/>
+                                                <Label Grid.Column="2" Content="Czy rozegrano"/>
+                                            </Grid>
+                                            <ItemsPresenter/>
+                                        </DockPanel>
+                                    </ControlTemplate>
+                                </ListBox.Template>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Margin="2" Text="{Binding Druzyna1.Nazwa}" Grid.Column="0"/>
+                                            <TextBlock Margin="2" Text="{Binding Druzyna2.Nazwa}" Grid.Column="1"/>
+                                            <TextBlock Grid.Column="2">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Text" Value="Nie rozegrane" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding CzyZakonczone}" Value="True">
+                                                                <Setter Property="Text" Value="Zakończone" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <Separator x:Name="separator1_Spotkania" Height="100" Margin="0,-13,0,553"/>
+                            <Separator x:Name="separator2_Spotkania" Height="100" RenderTransformOrigin="0.5,0.5" Margin="164,270,-68,270">
+                                <Separator.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="90"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Separator.RenderTransform>
+                            </Separator>
+                            <Separator x:Name="separator3_Spotkania" Height="100" RenderTransformOrigin="0.5,0.5" Margin="-86,270,182,270">
+                                <Separator.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="90"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Separator.RenderTransform>
+                            </Separator>
+                        </Grid>
                     </Border>
-                    <ListBox x:Name="listBox_spotkania" HorizontalContentAlignment="Stretch" Height="637"  VerticalAlignment="Top" Margin="18,68,834,0" Grid.RowSpan="2" Grid.ColumnSpan="3">
-                        <ListBox.Template>
-                            <ControlTemplate>
-                                <DockPanel LastChildFill="True">
-                                    <Grid DockPanel.Dock="Top" Height="50">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Drużyna1"/>
-                                        <Label Grid.Column="1" Content="Drużyna2"/>
-                                        <Label Grid.Column="2" Content="Czy rozegrano"/>
-                                    </Grid>
-                                    <ItemsPresenter/>
-                                </DockPanel>
-                            </ControlTemplate>
-                        </ListBox.Template>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Margin="2" Text="{Binding Druzyna1.Nazwa}" Grid.Column="0"/>
-                                    <TextBlock Margin="2" Text="{Binding Druzyna2.Nazwa}" Grid.Column="1"/>
-                                    <TextBlock Grid.Column="2">
-                                        <TextBlock.Style>
-                                            <Style TargetType="{x:Type TextBlock}">
-                                                <Setter Property="Text" Value="Nie rozegrane" />
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding CzyZakonczone}" Value="True">
-                                                        <Setter Property="Text" Value="Zakonczone" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <Separator x:Name="separator1_Spotkania" Height="100" Margin="19,57,833,193" Grid.ColumnSpan="3"/>
                     <Label x:Name="lbl_NazwaEtapu" Content="Faza Początkowa" HorizontalAlignment="Left" Margin="67,10,0,0" VerticalAlignment="Top" Height="42" Width="210" FontSize="25" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <Button x:Name="btn_WprowadzWynik" Content="Rozegraj kolejne spotkanie" Margin="15,378,1057,32" Click="btn_WprowadzWynik_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <Separator x:Name="separatorRozgrywka" Margin="64,42,416,393" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Grid.Column="2">
+                    <Separator x:Name="separatorRozgrywka" Margin="70,42,410,393" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Grid.Column="2">
                         <Separator.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -233,74 +252,75 @@
                         </Separator.RenderTransform>
                     </Separator>
                     <Label x:Name="lbl_tablicaWynikow" Content="Tablica wyników" HorizontalAlignment="Left" Margin="796,10,0,0" VerticalAlignment="Top" Height="51" Width="202" FontSize="25" Grid.Column="2"/>
-                    <ListBox x:Name="listBox_tablicaWynikow" Margin="496,69,36,32" HorizontalContentAlignment="Stretch" Grid.RowSpan="2" Grid.Column="2">
-                        <ListBox.Template>
-                            <ControlTemplate>
-                                <DockPanel LastChildFill="True">
-                                    <Grid DockPanel.Dock="Top" Height="50">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Drużyna"/>
-                                        <Label Grid.Column="1" Content="Punkty"/>
-                                    </Grid>
-                                    <ItemsPresenter/>
-                                </DockPanel>
-                            </ControlTemplate>
-                        </ListBox.Template>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Margin="2" Text="{Binding Key.Nazwa}" Grid.Column="0"/>
-                                    <TextBlock Margin="2" Text="{Binding Value}" Grid.Column="1"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <Separator x:Name="separator2_TablicaWynikow" Height="100" Margin="516,19,70,334" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Grid.Column="2">
-                        <Separator.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="90"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Separator.RenderTransform>
-                    </Separator>
+                    <Border x:Name="border_TablicaWynikow" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="353" Margin="496,56,0,0" VerticalAlignment="Top" Width="756" Background="White" Grid.RowSpan="2" Grid.Column="2">
+                        <Grid>
+                            <Separator x:Name="separator1_TablicaWynikow" Margin="1,-57,-1,215" HorizontalAlignment="Left" Width="754"/>
+                            <Separator x:Name="separator2_TablicaWynikow" Height="100" RenderTransformOrigin="0.5,0.5" Margin="199,125,203,126">
+                                <Separator.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="90"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Separator.RenderTransform>
+                            </Separator>
+                            <ListBox x:Name="listBox_tablicaWynikow" HorizontalContentAlignment="Stretch" Grid.RowSpan="2" Grid.Column="2">
+                                <ListBox.Template>
+                                    <ControlTemplate>
+                                        <DockPanel LastChildFill="True">
+                                            <Grid DockPanel.Dock="Top" Height="50">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Column="0" Content="Drużyna"/>
+                                                <Label Grid.Column="1" Content="Punkty"/>
+                                            </Grid>
+                                            <ItemsPresenter/>
+                                        </DockPanel>
+                                    </ControlTemplate>
+                                </ListBox.Template>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Margin="2" Text="{Binding Key.Nazwa}" Grid.Column="0"/>
+                                            <TextBlock Margin="2" Text="{Binding Value}" Grid.Column="1"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </Border>
+
                     <Button x:Name="btn_StartRozgrywka" Content="Rozpocznij Rozgrywkę" Margin="338,11,696,382" Click="btn_StartRozgrywka_Click" Grid.Row="1" Grid.Column="2"/>
                     <Button x:Name="btn_RozpocznijPolfinal" Content="Rozpocznij Półfinał" HorizontalAlignment="Left" Margin="39,378,0,0" VerticalAlignment="Top" Width="260" Height="43" Click="btn_RozpocznijPolfinal_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <Button x:Name="btn_RozpocznijFinal" Content="Rozpocznij Finał" HorizontalAlignment="Left" Margin="39,378,0,0" VerticalAlignment="Top" Width="260" Height="43" Click="btn_RozpocznijFinal_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <Button x:Name="btn_ZakonczRozgrywke" Content="Zakoncz Rozgrywkę" HorizontalAlignment="Left" Margin="39,378,0,0" VerticalAlignment="Top" Width="260" Height="43" Click="btn_ZakonczRozgrywke_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <Separator x:Name="separator2_Spotkania" Height="100" Margin="-61,337,1009,366" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" Grid.ColumnSpan="3">
-                        <Separator.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="90"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Separator.RenderTransform>
-                    </Separator>
-                    <Separator x:Name="separator3_Spotkania" Height="100" Margin="173,337,773,366" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" Grid.ColumnSpan="3">
-                        <Separator.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="90"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Separator.RenderTransform>
-                    </Separator>
+                    <Button x:Name="btn_ZakonczRozgrywke" Content="Zakończ Rozgrywkę" HorizontalAlignment="Left" Margin="39,378,0,0" VerticalAlignment="Top" Width="260" Height="43" Click="btn_ZakonczRozgrywke_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    
+                    <Button x:Name="btn_Podglad" Content="Szczegóły spotkania" HorizontalAlignment="Left" Margin="266,381,0,0" Grid.Row="1" VerticalAlignment="Top" Width="190" Height="37" Grid.Column="2" Click="btn_Podglad_Click" IsEnabled="False"/>
+                    <Border x:Name="border_FazaFinalowa" BorderBrush="Black" BorderThickness="1" Grid.Column="2" Margin="496,76,36,32" Grid.Row="1">
+                        <Border.Background>
+                            <ImageBrush/>
+                        </Border.Background>
+                        <Grid>
+                            <Image x:Name="bg_fazafinalowa_png" Margin="-1" Source="bg_fazafinalowa.png" Stretch="Fill"/>
+                            <Label x:Name="lbl_PolfinalD1" Content="" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Width="185"/>
+                            <Label x:Name="lbl_PolfinalD2" Content="" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Width="185"/>
+                            <Label x:Name="lbl_PolfinalD3" Content="" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top" Width="185"/>
+                            <Label x:Name="lbl_PolfinalD4" Content="" HorizontalAlignment="Left" Margin="10,238,0,0" VerticalAlignment="Top" Width="185"/>
+                            <Label x:Name="lbl_FinalD1" Content="" HorizontalAlignment="Left" Margin="300,54,0,0" VerticalAlignment="Top" Width="164"/>
+                            <Label x:Name="lbl_FinalD2" Content="" HorizontalAlignment="Left" Margin="300,222,0,0" VerticalAlignment="Top" Width="164"/>
+                            <Label x:Name="lbl_zwyciezca" Content="" HorizontalAlignment="Left" Margin="559,144,0,0" VerticalAlignment="Top" Width="185"/>
+
+                        </Grid>
+                    </Border>
                 </Grid>
             </TabItem>
-
-
-
         </TabControl>
         <Button x:Name="btn_save" Content="Zapisz stan" HorizontalAlignment="Left" Margin="1331,15,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="btn_save_Click"/>
         <Button x:Name="btn_load" Content="Wczytaj stan" HorizontalAlignment="Left" Margin="1459,15,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="btn_load_Click"/>

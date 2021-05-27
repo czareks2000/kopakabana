@@ -27,6 +27,7 @@ namespace Kopakabana
         public DlgSpotkanie(Spotkanie spotkanie)
         {
             InitializeComponent();
+            lbl_Sedziowie2.Visibility = Visibility.Hidden;
 
             lbl_druzyna1.Content = spotkanie.Druzyna1.Nazwa;
             lbl_druzyna2.Content = spotkanie.Druzyna2.Nazwa;
@@ -35,6 +36,7 @@ namespace Kopakabana
             lbl_sedzia1.Content = sedziowieSpotkania[0].Imie + " " + sedziowieSpotkania[0].Nazwisko;
             if (sedziowieSpotkania.Count == 3)
             {
+                lbl_Sedziowie2.Visibility = Visibility.Visible;
                 lbl_sedzia2.Content = sedziowieSpotkania[1].Imie + " " + sedziowieSpotkania[1].Nazwisko;
                 lbl_sedzia3.Content = sedziowieSpotkania[2].Imie + " " + sedziowieSpotkania[2].Nazwisko;
             }
@@ -42,14 +44,29 @@ namespace Kopakabana
             cb_wygranaDruzyna.ItemsSource = spotkanie.GetDruzyny();
         }
 
+        public DlgSpotkanie(Spotkanie spotkanie, bool czyPodglad)
+            : this(spotkanie)
+        {
+            if (czyPodglad)
+            {
+                Title = "Podgląd";
+                if (spotkanie.CzyZakonczone)
+                    cb_wygranaDruzyna.SelectedItem = spotkanie.WygranaDruzyna;
+                else
+                {
+                    lbl_wygranaDruzyna.Visibility = Visibility.Hidden;
+                    cb_wygranaDruzyna.Visibility = Visibility.Hidden;
+                }
+
+                cb_wygranaDruzyna.IsEnabled = false;
+                btn_zakoncz.Content = "OK";
+            }
+        }
+
         private void btn_zakoncz_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
         }
 
-        private void cb_wygranaDruzyna_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
