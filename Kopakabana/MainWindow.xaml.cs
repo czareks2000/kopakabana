@@ -34,9 +34,9 @@ namespace Kopakabana
 
             sedziowie.Add(new Osoba("Jan","Kowalski"));
             sedziowie.Add(new Osoba("Joachim","Mazur"));
-            sedziowie.Add(new Osoba("Allan","Wojciechowski"));
-            sedziowie.Add(new Osoba("Kryspin","Szymczak"));
-            sedziowie.Add(new Osoba("Mirosław","Wysocki"));
+            //sedziowie.Add(new Osoba("Allan","Wojciechowski"));
+            //sedziowie.Add(new Osoba("Kryspin","Szymczak"));
+            //sedziowie.Add(new Osoba("Mirosław","Wysocki"));
 
             druzyny.Add(new Druzyna("Alfa"));
             druzyny.Add(new Druzyna("Beta"));
@@ -134,43 +134,94 @@ namespace Kopakabana
 
         private void WprowadzWynik(Spotkanie spotkanie, Druzyna druzyna)
         {
-            spotkanie.Zakoncz(druzyna);
-
-            if(czyPolfinalRozpoczety)
+            try
             {
-                fazaFinalowa.DodajPunkt(druzyna);
-                if (czyFinalRozpoczety)
+                spotkanie.Zakoncz(druzyna);
+
+                if (czyPolfinalRozpoczety)
                 {
-                    lbl_zwyciezca.Content = druzyna.Nazwa;
+                    try
+                    {
+                        fazaFinalowa.DodajPunkt(druzyna);
+                    }
+                    catch (NieprawidlowaDruzynaException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        throw;
+                    }
+                    if (czyFinalRozpoczety)
+                    {
+                        lbl_zwyciezca.Content = druzyna.Nazwa;
+                    }
+                    else
+                    {
+                        if (lbl_FinalD1.Content.ToString() == "")
+                            lbl_FinalD1.Content = druzyna.Nazwa;
+                        else
+                            lbl_FinalD2.Content = druzyna.Nazwa;
+                    }
+
                 }
                 else
                 {
-                    if (lbl_FinalD1.Content.ToString() == "")
-                        lbl_FinalD1.Content = druzyna.Nazwa;
-                    else
-                        lbl_FinalD2.Content = druzyna.Nazwa;
+                    try
+                    {
+                        fazaPoczatkowa.DodajPunkt(druzyna);
+                    }
+                    catch (NieprawidlowaDruzynaException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        throw;
+                    }
                 }
-                    
-            }  
-            else
-                fazaPoczatkowa.DodajPunkt(druzyna);
 
-            listBox_spotkania.Items.Refresh();
-            OdswiezTabliceWynikow();
+                listBox_spotkania.Items.Refresh();
+                OdswiezTabliceWynikow();
+            }
+            catch(NieprawidlowaDruzynaException ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+            catch(ZakonczoneSpotkanieException ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+
         }
 
         private void RozpocznijRozgrywke(TypGry typGry)
         {
             czyRozgrywkaRozpoczeta = true;
 
-            fazaPoczatkowa = new FazaPoczatkowa(druzyny, sedziowie, typGry);
+            try
+            {
+                fazaPoczatkowa = new FazaPoczatkowa(druzyny, sedziowie, typGry);
+                listBox_spotkania.ItemsSource = fazaPoczatkowa.Spotkania();
+                listBox_spotkania.Items.Refresh();
 
-            listBox_spotkania.ItemsSource = fazaPoczatkowa.Spotkania();
-            listBox_spotkania.Items.Refresh();
+                OdswiezTabliceWynikow();
 
-            OdswiezTabliceWynikow();
+                PrzelaczInterfaceRozgryki();
 
-            PrzelaczInterfaceRozgryki();
+            }
+            catch (PustaListaSedziowException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (ZbytMalaLiczbaSedziowException ex)
+            {
+                MessageBox.Show(ex.Message + ex.getNazw());
+            }
+            catch (BrakDruzynException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (ZbytMalaLiczbaDruzynException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void PrzelaczInterfaceRozgryki()
@@ -256,36 +307,63 @@ namespace Kopakabana
 
         private void btn_RozpocznijPolfinal_Click(object sender, RoutedEventArgs e)
         {
-            czyPolfinalRozpoczety = true;
-            lbl_NazwaEtapu.Content = "Połfinał";
+            try
+            {
+                czyPolfinalRozpoczety = true;
+                lbl_NazwaEtapu.Content = "Połfinał";
 
-            List<Druzyna> najlepszeCztery = fazaPoczatkowa.NajlepszeCztery();
+                List<Druzyna> najlepszeCztery = fazaPoczatkowa.NajlepszeCztery();
 
-            fazaFinalowa = new FazaFinalowa(najlepszeCztery, sedziowie, fazaPoczatkowa.GetTyp());
+                fazaFinalowa = new FazaFinalowa(najlepszeCztery, sedziowie, fazaPoczatkowa.GetTyp());
 
-            lbl_PolfinalD1.Content = najlepszeCztery[0];
-            lbl_PolfinalD2.Content = najlepszeCztery[1];
-            lbl_PolfinalD3.Content = najlepszeCztery[2];
-            lbl_PolfinalD4.Content = najlepszeCztery[3];
+                lbl_PolfinalD1.Content = najlepszeCztery[0];
+                lbl_PolfinalD2.Content = najlepszeCztery[1];
+                lbl_PolfinalD3.Content = najlepszeCztery[2];
+                lbl_PolfinalD4.Content = najlepszeCztery[3];
 
-            listBox_spotkania.ItemsSource = fazaFinalowa.Spotkania();
-            listBox_spotkania.Items.Refresh();
+                listBox_spotkania.ItemsSource = fazaFinalowa.Spotkania();
+                listBox_spotkania.Items.Refresh();
 
-            PrzelaczInterfaceRozgryki();
-        }
+                PrzelaczInterfaceRozgryki();
+            }
+            catch (ZbytMalaLiczbaDruzynException ex)
+            {
+                MessageBox.Show(ex.Message);
+
+                czyRozgrywkaRozpoczeta = false;
+                czyPolfinalRozpoczety = false;
+                czyFinalRozpoczety = false;
+
+                PrzelaczInterfaceRozgryki();
+
+            }
+}
 
         private void btn_RozpocznijFinal_Click(object sender, RoutedEventArgs e)
         {
-            czyFinalRozpoczety = true;
-            lbl_NazwaEtapu.Content = "Finał";
+            try
+            {
+                czyFinalRozpoczety = true;
+                lbl_NazwaEtapu.Content = "Finał";
 
-            Spotkanie spotkanie = fazaFinalowa.RozegrajFinal(sedziowie);
+                Spotkanie spotkanie = fazaFinalowa.RozegrajFinal(sedziowie);
 
-            listBox_spotkania.ItemsSource = null;
-            listBox_spotkania.Items.Add(spotkanie);
-            listBox_spotkania.Items.Refresh();
+                listBox_spotkania.ItemsSource = null;
+                listBox_spotkania.Items.Add(spotkanie);
+                listBox_spotkania.Items.Refresh();
 
-            PrzelaczInterfaceRozgryki();
+                PrzelaczInterfaceRozgryki();
+            }
+            catch (ZbytMalaLiczbaDruzynException ex)
+            {
+                MessageBox.Show(ex.Message);
+
+                czyRozgrywkaRozpoczeta = false;
+                czyPolfinalRozpoczety = false;
+                czyFinalRozpoczety = false;
+
+                PrzelaczInterfaceRozgryki();
+            }
         }
 
         private void btn_ZakonczRozgrywke_Click(object sender, RoutedEventArgs e)

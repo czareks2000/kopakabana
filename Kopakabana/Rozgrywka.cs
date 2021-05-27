@@ -14,6 +14,9 @@ namespace Kopakabana
 
         public Rozgrywka(List<Druzyna> druzyny, TypGry typ)
         {
+            if(druzyny.Count<4)
+                throw new ZbytMalaLiczbaDruzynException("Druzyn jest mniej niz 4");
+
             wyniki = new Dictionary<Druzyna, int>();
             spotkania = new List<Spotkanie>();
 

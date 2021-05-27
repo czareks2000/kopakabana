@@ -8,7 +8,10 @@ namespace Kopakabana
 {
     class ZbytMalaLiczbaSedziowException: Exception
     {
-        public ZbytMalaLiczbaSedziowException() { }
-        public ZbytMalaLiczbaSedziowException(string msg, string nazwa) { Console.WriteLine(msg + nazwa); }
+        private string nazw;
+        public ZbytMalaLiczbaSedziowException(string nazwa) { nazw = nazwa; }
+        public ZbytMalaLiczbaSedziowException( string msg, string nazwa): base(msg) { nazw = nazwa;  }
+
+        public string getNazw() { return nazw; }
     }
 }
