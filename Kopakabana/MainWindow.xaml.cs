@@ -175,6 +175,11 @@ namespace Kopakabana
             {
                 btn_StartRozgrywka.Visibility = Visibility.Hidden;
 
+                btn_UsunDruzyne.IsEnabled = false;
+                btn_UsunSedziego.IsEnabled = false;
+                groupBox_druzyny.Visibility = Visibility.Hidden;
+                groupBox_sedziowie.Visibility = Visibility.Hidden;
+
                 border_Spotkania.Visibility = Visibility.Visible;
                 separator1_Spotkania.Visibility = Visibility.Visible;
                 separator2_Spotkania.Visibility = Visibility.Visible;
@@ -196,6 +201,11 @@ namespace Kopakabana
             else
             {
                 btn_StartRozgrywka.Visibility = Visibility.Visible;
+
+                btn_UsunDruzyne.IsEnabled = true;
+                btn_UsunSedziego.IsEnabled = true;
+                groupBox_druzyny.Visibility = Visibility.Visible;
+                groupBox_sedziowie.Visibility = Visibility.Visible;
 
                 btn_RozpocznijPolfinal.Visibility = Visibility.Hidden;
                 btn_RozpocznijFinal.Visibility = Visibility.Hidden;
