@@ -12,7 +12,10 @@ namespace Kopakabana
         public string Nazwa { get; private set; }
         private List<Osoba> zawodnicy;
 
-        public Druzyna() { }
+        public Druzyna()
+        {
+            zawodnicy = new List<Osoba>();
+        }
 
         public Druzyna(string nazwa)
         {

@@ -20,39 +20,35 @@ namespace Kopakabana
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Druzyna> druzyny = new List<Druzyna>();
-        private List<Osoba> sedziowie = new List<Osoba>();
-        private FazaPoczatkowa fazaPoczatkowa;
-        private FazaFinalowa fazaFinalowa;
-        private bool czyRozgrywkaRozpoczeta = false;
-        private bool czyPolfinalRozpoczety = false;
-        private bool czyFinalRozpoczety = false;
+        private StanProgramu stan;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            sedziowie.Add(new Osoba("Jan","Kowalski"));
-            sedziowie.Add(new Osoba("Joachim","Mazur"));
-            sedziowie.Add(new Osoba("Allan","Wojciechowski"));
-            sedziowie.Add(new Osoba("Kryspin","Szymczak"));
-            sedziowie.Add(new Osoba("Mirosław","Wysocki"));
+            stan = new StanProgramu();
 
-            druzyny.Add(new Druzyna("Alfa"));
-            druzyny.Add(new Druzyna("Beta"));
-            druzyny.Add(new Druzyna("Gamma"));
-            druzyny.Add(new Druzyna("Delta"));
-            druzyny.Add(new Druzyna("Bravo"));
+            stan.Sedziowie.Add(new Osoba("Jan","Kowalski"));
+            stan.Sedziowie.Add(new Osoba("Joachim","Mazur"));
+            stan.Sedziowie.Add(new Osoba("Allan","Wojciechowski"));
+            stan.Sedziowie.Add(new Osoba("Kryspin","Szymczak"));
+            stan.Sedziowie.Add(new Osoba("Mirosław","Wysocki"));
+
+            stan.Druzyny.Add(new Druzyna("Alfa"));
+            stan.Druzyny.Add(new Druzyna("Beta"));
+            stan.Druzyny.Add(new Druzyna("Gamma"));
+            stan.Druzyny.Add(new Druzyna("Delta"));
+            stan.Druzyny.Add(new Druzyna("Bravo"));
 
             PrzelaczInterfaceRozgryki();
 
-            listBox_druzyny.ItemsSource = druzyny;
-            listBox_sedziowie.ItemsSource = sedziowie;
+            listBox_druzyny.ItemsSource = stan.Druzyny;
+            listBox_sedziowie.ItemsSource = stan.Sedziowie;
         }
 
         private void btn_DodajSedziego_Click(object sender, RoutedEventArgs e)
         {
-            sedziowie.Add(new Osoba(tbx_ImieSedzia.Text, tbx_NazwiskoSedzia.Text));
+            stan.Sedziowie.Add(new Osoba(tbx_ImieSedzia.Text, tbx_NazwiskoSedzia.Text));
             tbx_ImieSedzia.Clear();
             tbx_NazwiskoSedzia.Clear();
             listBox_sedziowie.Items.Refresh();
@@ -60,20 +56,20 @@ namespace Kopakabana
 
         private void btn_DodajDruzyne_Click(object sender, RoutedEventArgs e)
         {
-            druzyny.Add(new Druzyna(tbx_NazwaDruzyna.Text));
+            stan.Druzyny.Add(new Druzyna(tbx_NazwaDruzyna.Text));
             tbx_NazwaDruzyna.Clear();
             listBox_druzyny.Items.Refresh();
         }
 
         private void btn_UsunSedziego_Click(object sender, RoutedEventArgs e)
         {
-            sedziowie.RemoveAt(listBox_sedziowie.SelectedIndex);
+            stan.Sedziowie.RemoveAt(listBox_sedziowie.SelectedIndex);
             listBox_sedziowie.Items.Refresh();
         }
 
         private void btn_UsunDruzyne_Click(object sender, RoutedEventArgs e)
         {
-            druzyny.RemoveAt(listBox_druzyny.SelectedIndex);
+            stan.Druzyny.RemoveAt(listBox_druzyny.SelectedIndex);
             listBox_druzyny.Items.Refresh();
         }
 
@@ -89,10 +85,10 @@ namespace Kopakabana
         private void btn_WprowadzWynik_Click(object sender, RoutedEventArgs e)
         {
             Spotkanie spotkanie;
-            if (czyPolfinalRozpoczety)
-                spotkanie = fazaFinalowa.KolejneSpotkanie();
+            if (stan.CzyPolfinalRozpoczety)
+                spotkanie = stan.FazaFinalowa.KolejneSpotkanie();
             else
-                spotkanie = fazaPoczatkowa.KolejneSpotkanie();
+                spotkanie = stan.FazaPoczatkowa.KolejneSpotkanie();
 
             DlgSpotkanie dlg = new DlgSpotkanie(spotkanie);
             
@@ -105,9 +101,9 @@ namespace Kopakabana
 
         private void KolejnyEtap()
         {
-            if (czyFinalRozpoczety)
+            if (stan.CzyFinalRozpoczety)
             {
-                if (fazaFinalowa.KolejneSpotkanie() == null)
+                if (stan.FazaFinalowa.KolejneSpotkanie() == null)
                 {
                     btn_WprowadzWynik.Visibility = Visibility.Hidden;
                     btn_ZakonczRozgrywke.Visibility = Visibility.Visible;
@@ -115,9 +111,9 @@ namespace Kopakabana
                 return;
             }
 
-            if (czyPolfinalRozpoczety)
+            if (stan.CzyPolfinalRozpoczety)
             {
-                if (fazaFinalowa.KolejneSpotkanie() == null)
+                if (stan.FazaFinalowa.KolejneSpotkanie() == null)
                 {
                     btn_WprowadzWynik.Visibility = Visibility.Hidden;
                     btn_RozpocznijFinal.Visibility = Visibility.Visible;
@@ -125,7 +121,7 @@ namespace Kopakabana
                 return;
             }
 
-            if (fazaPoczatkowa.KolejneSpotkanie() == null)
+            if (stan.FazaPoczatkowa.KolejneSpotkanie() == null)
             {
                 btn_WprowadzWynik.Visibility = Visibility.Hidden;
                 btn_RozpocznijPolfinal.Visibility = Visibility.Visible;
@@ -138,12 +134,12 @@ namespace Kopakabana
             {
                 spotkanie.Zakoncz(druzyna);
 
-                if (czyPolfinalRozpoczety)
+                if (stan.CzyPolfinalRozpoczety)
                 {
+
+                    stan.FazaFinalowa.DodajPunkt(druzyna);
                     
-                    fazaFinalowa.DodajPunkt(druzyna);
-                    
-                    if (czyFinalRozpoczety)
+                    if (stan.CzyFinalRozpoczety)
                     {
                         lbl_zwyciezca.Content = druzyna.Nazwa;
                     }
@@ -158,8 +154,8 @@ namespace Kopakabana
                 }
                 else
                 {
-                    
-                    fazaPoczatkowa.DodajPunkt(druzyna);
+
+                    stan.FazaPoczatkowa.DodajPunkt(druzyna);
                 }
 
                 listBox_spotkania.Items.Refresh();
@@ -178,12 +174,12 @@ namespace Kopakabana
 
         private void RozpocznijRozgrywke(TypGry typGry)
         {
-            czyRozgrywkaRozpoczeta = true;
+            stan.CzyRozgrywkaRozpoczeta = true;
 
             try
             {
-                fazaPoczatkowa = new FazaPoczatkowa(druzyny, sedziowie, typGry);
-                listBox_spotkania.ItemsSource = fazaPoczatkowa.Spotkania();
+                stan.FazaPoczatkowa = new FazaPoczatkowa(stan.Druzyny, stan.Sedziowie, typGry);
+                listBox_spotkania.ItemsSource = stan.FazaPoczatkowa.Spotkania();
                 listBox_spotkania.Items.Refresh();
 
                 OdswiezTabliceWynikow();
@@ -210,11 +206,11 @@ namespace Kopakabana
 
         private void PrzelaczInterfaceRozgryki()
         {
-            if (czyFinalRozpoczety)
+            if (stan.CzyFinalRozpoczety)
                 InterfaceFinal();
-            else if (czyPolfinalRozpoczety)
+            else if (stan.CzyPolfinalRozpoczety)
                 InterfacePolFinal();
-            else if (czyRozgrywkaRozpoczeta)
+            else if (stan.CzyRozgrywkaRozpoczeta)
                 WlaczInterfaceRozgrywka();
             else
                 WylaczIngerfaceRozgrywka();
@@ -285,26 +281,26 @@ namespace Kopakabana
 
         private void OdswiezTabliceWynikow()
         {
-            listBox_tablicaWynikow.ItemsSource = fazaPoczatkowa.TablicaWynikow();
+            listBox_tablicaWynikow.ItemsSource = stan.FazaPoczatkowa.TablicaWynikow();
             listBox_tablicaWynikow.Items.Refresh();
         }
 
         private void btn_RozpocznijPolfinal_Click(object sender, RoutedEventArgs e)
         {
 
-            czyPolfinalRozpoczety = true;
+            stan.CzyPolfinalRozpoczety = true;
             lbl_NazwaEtapu.Content = "Połfinał";
 
-            List<Druzyna> najlepszeCztery = fazaPoczatkowa.NajlepszeCztery();
+            List<Druzyna> najlepszeCztery = stan.FazaPoczatkowa.NajlepszeCztery();
 
-            fazaFinalowa = new FazaFinalowa(najlepszeCztery, sedziowie, fazaPoczatkowa.GetTyp());
+            stan.FazaFinalowa = new FazaFinalowa(najlepszeCztery, stan.Sedziowie, stan.FazaPoczatkowa.GetTyp());
 
             lbl_PolfinalD1.Content = najlepszeCztery[0];
             lbl_PolfinalD2.Content = najlepszeCztery[1];
             lbl_PolfinalD3.Content = najlepszeCztery[2];
             lbl_PolfinalD4.Content = najlepszeCztery[3];
 
-            listBox_spotkania.ItemsSource = fazaFinalowa.Spotkania();
+            listBox_spotkania.ItemsSource = stan.FazaFinalowa.Spotkania();
             listBox_spotkania.Items.Refresh();
 
             PrzelaczInterfaceRozgryki();
@@ -312,11 +308,11 @@ namespace Kopakabana
 
         private void btn_RozpocznijFinal_Click(object sender, RoutedEventArgs e)
         {
-           
-            czyFinalRozpoczety = true;
+
+            stan.CzyFinalRozpoczety = true;
             lbl_NazwaEtapu.Content = "Finał";
 
-            Spotkanie spotkanie = fazaFinalowa.RozegrajFinal(sedziowie);
+            Spotkanie spotkanie = stan.FazaFinalowa.RozegrajFinal(stan.Sedziowie);
 
             listBox_spotkania.ItemsSource = null;
             listBox_spotkania.Items.Add(spotkanie);
@@ -328,9 +324,9 @@ namespace Kopakabana
 
         private void btn_ZakonczRozgrywke_Click(object sender, RoutedEventArgs e)
         {
-            czyRozgrywkaRozpoczeta = false;
-            czyPolfinalRozpoczety = false;
-            czyFinalRozpoczety = false;
+            stan.CzyRozgrywkaRozpoczeta = false;
+            stan.CzyPolfinalRozpoczety = false;
+            stan.CzyFinalRozpoczety = false;
             listBox_spotkania.Items.Clear();
 
             PrzelaczInterfaceRozgryki();
@@ -377,11 +373,14 @@ namespace Kopakabana
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
             //zapis stanu do pliku
+
+            //Saver.SaveAble.Save("D:\\stan.xml", stan);
         }
 
         private void btn_load_Click(object sender, RoutedEventArgs e)
         {
             //odczyt stanu z pliku
+            //stan = Saver.SaveAble.Load<StanProgramu>("D:\\stan.xml");
         }
     }
 }

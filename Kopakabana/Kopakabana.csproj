@@ -69,7 +69,9 @@
     <Compile Include="FazaFinalowa.cs" />
     <Compile Include="FazaPoczatkowa.cs" />
     <Compile Include="Rozgrywka.cs" />
+    <Compile Include="SaveAble.cs" />
     <Compile Include="Spotkanie.cs" />
+    <Compile Include="StanProgramu.cs" />
     <Compile Include="TypGry.cs" />
     <Compile Include="Util.cs" />
     <Page Include="DlgSpotkanie.xaml">

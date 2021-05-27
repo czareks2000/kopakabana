@@ -15,7 +15,10 @@ namespace Kopakabana
         public Druzyna WygranaDruzyna { get; private set; }
         public bool CzyZakonczone { get; private set; }
 
-        public Spotkanie() { }
+        public Spotkanie()
+        {
+            CzyZakonczone = false;
+        }
 
         public Spotkanie(Druzyna d1, Druzyna d2, List<Osoba> s)
         {

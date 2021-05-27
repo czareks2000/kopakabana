@@ -13,7 +13,11 @@ namespace Kopakabana
         protected Dictionary<Druzyna, int> wyniki;
         protected TypGry typGry;
 
-        public Rozgrywka() { }
+        public Rozgrywka()
+        {
+            wyniki = new Dictionary<Druzyna, int>();
+            spotkania = new List<Spotkanie>();
+        }
 
         public Rozgrywka(List<Druzyna> druzyny, TypGry typ)
         {
