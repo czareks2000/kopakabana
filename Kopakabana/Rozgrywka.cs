@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
+    [Serializable]
     public abstract class Rozgrywka
     {
         protected List<Spotkanie> spotkania;
         protected Dictionary<Druzyna, int> wyniki;
         protected TypGry typGry;
+
+        public Rozgrywka() { }
 
         public Rozgrywka(List<Druzyna> druzyny, TypGry typ)
         {

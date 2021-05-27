@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
+    [Serializable]
     public class FazaPoczatkowa : Rozgrywka
     {
+        public FazaPoczatkowa() { }
+
         public FazaPoczatkowa(List<Druzyna> druzyny, List<Osoba> sedziowie, TypGry typ)
             : base(druzyny, typ)
         {

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
+    [Serializable]
     public class Druzyna
     {
         public string Nazwa { get; private set; }
         private List<Osoba> zawodnicy;
 
+        public Druzyna() { }
 
         public Druzyna(string nazwa)
         {

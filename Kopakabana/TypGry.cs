@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
+    [Serializable]
     public class TypGry
     {
         public string Nazwa { get; private set; }
         public int LiczbaSedziow { get; private set; }
+
+        public TypGry() { }
 
         public TypGry(string nazwa, int liczba)
         {

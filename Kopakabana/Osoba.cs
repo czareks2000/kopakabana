@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
+    [Serializable]
     public class Osoba
     {
         public string Imie { get; private set; }
         public string Nazwisko { get; private set; }
+
+        public Osoba() { }
 
         public Osoba(string imie, string nazwisko)
         {

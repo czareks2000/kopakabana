@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
+    [Serializable]
     public class Spotkanie
     {
         public Druzyna Druzyna1 { get; private set; }
@@ -13,6 +14,8 @@ namespace Kopakabana
         private List<Osoba> sedziowie;
         public Druzyna WygranaDruzyna { get; private set; }
         public bool CzyZakonczone { get; private set; }
+
+        public Spotkanie() { }
 
         public Spotkanie(Druzyna d1, Druzyna d2, List<Osoba> s)
         {
