@@ -63,14 +63,20 @@ namespace Kopakabana
 
         private void btn_UsunSedziego_Click(object sender, RoutedEventArgs e)
         {
-            stan.Sedziowie.RemoveAt(listBox_sedziowie.SelectedIndex);
-            listBox_sedziowie.Items.Refresh();
+            if (listBox_sedziowie.SelectedIndex != -1)
+            {
+                stan.Sedziowie.RemoveAt(listBox_sedziowie.SelectedIndex);
+                listBox_sedziowie.Items.Refresh();
+            }
         }
 
         private void btn_UsunDruzyne_Click(object sender, RoutedEventArgs e)
         {
-            stan.Druzyny.RemoveAt(listBox_druzyny.SelectedIndex);
-            listBox_druzyny.Items.Refresh();
+            if (listBox_druzyny.SelectedIndex != -1)
+            {
+                stan.Druzyny.RemoveAt(listBox_druzyny.SelectedIndex);
+                listBox_druzyny.Items.Refresh();
+            }
         }
 
         private void btn_StartRozgrywka_Click(object sender, RoutedEventArgs e)
@@ -382,5 +388,7 @@ namespace Kopakabana
             //odczyt stanu z pliku
             //stan = Saver.SaveAble.Load<StanProgramu>("D:\\stan.xml");
         }
+
+        
     }
 }

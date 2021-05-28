@@ -107,7 +107,7 @@
                             <Button x:Name="btn_DodajSedziego" Content="Dodaj" HorizontalAlignment="Center" Margin="242,163,236,23" VerticalAlignment="Center" Width="112" Height="40" Background="#FFDDDDDD" BorderBrush="Black" Click="btn_DodajSedziego_Click" IsEnabled="False"/>
                         </Grid>
                     </GroupBox>
-                    <Button x:Name="btn_UsunSedziego" Content="Usun" HorizontalAlignment="Left" Margin="395,479,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.627,-0.258" Click="btn_UsunSedziego_Click" Grid.Row="1"/>
+                    <Button x:Name="btn_UsunSedziego" Content="Usun" HorizontalAlignment="Left" Margin="395,479,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.627,-0.258" Click="btn_UsunSedziego_Click" Grid.Row="1" IsEnabled="False"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Druzyny" Width="200" Height="50" FontSize="20" Margin="0">
@@ -145,7 +145,7 @@
                             <Button x:Name="btn_DodajDruzyne" Content="Dodaj" HorizontalAlignment="Center" Margin="242,0,236,14" VerticalAlignment="Bottom" Width="112" Height="40" Background="#FFDDDDDD" BorderBrush="Black" Click="btn_DodajDruzyne_Click" IsEnabled="False"/>
                         </Grid>
                     </GroupBox>
-                    <Button x:Name="btn_UsunDruzyne" Content="Usun" HorizontalAlignment="Left" Margin="395,752,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.627,-0.258" Click="btn_UsunDruzyne_Click"/>
+                    <Button x:Name="btn_UsunDruzyne" Content="Usun" HorizontalAlignment="Left" Margin="395,752,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.627,-0.258" Click="btn_UsunDruzyne_Click" IsEnabled="False"/>
                     <Separator Margin="489,363,287,358" RenderTransformOrigin="0.5,0.5">
                         <Separator.RenderTransform>
                             <TransformGroup>
