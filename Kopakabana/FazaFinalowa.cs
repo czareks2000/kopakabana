@@ -9,6 +9,7 @@ namespace Kopakabana
     [Serializable]
     public class FazaFinalowa : Rozgrywka
     {
+        public Spotkanie Final { get; private set; }
         public FazaFinalowa() { }
 
         public FazaFinalowa(List<Druzyna> druzyny, List<Osoba> sedziowie, TypGry typ)
@@ -28,10 +29,10 @@ namespace Kopakabana
             List<Druzyna> finaloweDruzyny = new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(2).ToList();
 
             //utworzenie finalowego spotkania
-            Spotkanie final = new Spotkanie(finaloweDruzyny[0], finaloweDruzyny[1], LosujSedziow(sedziowie));
-            spotkania.Add(final);
+            Final = new Spotkanie(finaloweDruzyny[0], finaloweDruzyny[1], LosujSedziow(sedziowie));
+            spotkania.Add(Final);
 
-            return final;
+            return Final;
         }
 
     }

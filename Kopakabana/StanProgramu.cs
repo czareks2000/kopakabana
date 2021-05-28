@@ -9,13 +9,14 @@ namespace Kopakabana
     [Serializable]
     public class StanProgramu
     {
-        public List<Druzyna> Druzyny { get; set; }
-        public List<Osoba> Sedziowie { get; set; }
-        public FazaPoczatkowa FazaPoczatkowa { get; set; }
-        public FazaFinalowa FazaFinalowa { get; set; }
         public bool CzyRozgrywkaRozpoczeta { get; set; }
         public bool CzyPolfinalRozpoczety { get; set; }
         public bool CzyFinalRozpoczety { get; set; }
+        public FazaPoczatkowa FazaPoczatkowa { get; set; }
+        public FazaFinalowa FazaFinalowa { get; set; }
+        public List<Osoba> Sedziowie { get; set; }
+        public List<Druzyna> Druzyny { get; set; }
+        
 
         public StanProgramu()
         {
@@ -25,6 +26,5 @@ namespace Kopakabana
             CzyPolfinalRozpoczety = false;
             CzyFinalRozpoczety = false;
         }
-
     }
 }
