@@ -427,9 +427,8 @@ namespace Kopakabana
             Nullable<bool> result = dlg.ShowDialog();
 
             if (result == true)
-            {
                 BinarySerializer.Serialize(new FileInfo(dlg.FileName), stan);
-            }
+
         }
 
         private void btn_load_Click(object sender, RoutedEventArgs e)
@@ -443,10 +442,8 @@ namespace Kopakabana
 
             Nullable<bool> result = dlg.ShowDialog();
 
-            if (result == false)
-                return;
-
-            WczytajStanProgramu((StanProgramu)BinarySerializer.Deserialize(new FileInfo(dlg.FileName)));
+            if (result == true)
+                WczytajStanProgramu((StanProgramu)BinarySerializer.Deserialize(new FileInfo(dlg.FileName)));
 
         }
 
@@ -493,11 +490,12 @@ namespace Kopakabana
 
             if (stan.FazaFinalowa.Final.CzyZakonczone)
                 lbl_zwyciezca.Content = stan.FazaFinalowa.Final.WygranaDruzyna.Nazwa;
-
+                
             WlaczInterfaceRozgrywka();
             InterfacePolFinal();
             InterfaceFinal();
             OdswiezTabliceWynikow();
+            KolejnyEtap();
         }
 
         private void WczytajFazePolfinalowa()
