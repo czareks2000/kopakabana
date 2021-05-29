@@ -16,7 +16,6 @@ namespace Kopakabana
         public FazaFinalowa FazaFinalowa { get; set; }
         public List<Osoba> Sedziowie { get; set; }
         public List<Druzyna> Druzyny { get; set; }
-        
 
         public StanProgramu()
         {

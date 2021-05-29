@@ -11,7 +11,7 @@ namespace Kopakabana
     {
         public Druzyna Druzyna1 { get; private set; }
         public Druzyna Druzyna2 { get; private set; }
-        private List<Osoba> sedziowie;
+        public List<Osoba> Sedziowie { get; private set; }
         public Druzyna WygranaDruzyna { get; private set; }
         public bool CzyZakonczone { get; private set; }
 
@@ -24,7 +24,7 @@ namespace Kopakabana
         {
             Druzyna1 = d1;
             Druzyna2 = d2;
-            sedziowie = s;
+            Sedziowie = s;
             CzyZakonczone = false;
         }
 
@@ -38,11 +38,6 @@ namespace Kopakabana
 
             CzyZakonczone = true;
             WygranaDruzyna = druzyna;
-        }
-
-        public List<Osoba> GetSedziowie()
-        {
-            return sedziowie;
         }
 
         public List<Druzyna> GetDruzyny()

@@ -32,13 +32,12 @@ namespace Kopakabana
             lbl_druzyna1.Content = spotkanie.Druzyna1.Nazwa;
             lbl_druzyna2.Content = spotkanie.Druzyna2.Nazwa;
 
-            List<Osoba> sedziowieSpotkania = spotkanie.GetSedziowie();
-            lbl_sedzia1.Content = sedziowieSpotkania[0].Imie + " " + sedziowieSpotkania[0].Nazwisko;
-            if (sedziowieSpotkania.Count == 3)
+            lbl_sedzia1.Content = spotkanie.Sedziowie[0].Imie + " " + spotkanie.Sedziowie[0].Nazwisko;
+            if (spotkanie.Sedziowie.Count == 3)
             {
                 lbl_Sedziowie2.Visibility = Visibility.Visible;
-                lbl_sedzia2.Content = sedziowieSpotkania[1].Imie + " " + sedziowieSpotkania[1].Nazwisko;
-                lbl_sedzia3.Content = sedziowieSpotkania[2].Imie + " " + sedziowieSpotkania[2].Nazwisko;
+                lbl_sedzia2.Content = spotkanie.Sedziowie[1].Imie + " " + spotkanie.Sedziowie[1].Nazwisko;
+                lbl_sedzia3.Content = spotkanie.Sedziowie[2].Imie + " " + spotkanie.Sedziowie[2].Nazwisko;
             }
 
             cb_wygranaDruzyna.ItemsSource = spotkanie.GetDruzyny();
