@@ -212,7 +212,7 @@ namespace Kopakabana
                     }
                     else
                     {
-                        if (lbl_FinalD1.Content.ToString() == "")
+                        if (lbl_FinalD1.Content == null)
                             lbl_FinalD1.Content = druzyna.Nazwa;
                         else
                             lbl_FinalD2.Content = druzyna.Nazwa;
