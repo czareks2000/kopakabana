@@ -29,17 +29,17 @@ namespace Kopakabana
 
             stan = new StanProgramu();
 
-            //stan.Sedziowie.Add(new Osoba("Jan","Kowalski"));
-            //stan.Sedziowie.Add(new Osoba("Joachim","Mazur"));
-            //stan.Sedziowie.Add(new Osoba("Allan","Wojciechowski"));
-            //stan.Sedziowie.Add(new Osoba("Kryspin","Szymczak"));
-            //stan.Sedziowie.Add(new Osoba("Mirosław","Wysocki"));
+            stan.Sedziowie.Add(new Osoba("Jan","Kowalski"));
+            stan.Sedziowie.Add(new Osoba("Joachim","Mazur"));
+            stan.Sedziowie.Add(new Osoba("Allan","Wojciechowski"));
+            stan.Sedziowie.Add(new Osoba("Kryspin","Szymczak"));
+            stan.Sedziowie.Add(new Osoba("Mirosław","Wysocki"));
 
-            //stan.Druzyny.Add(new Druzyna("Alfa"));
-            //stan.Druzyny.Add(new Druzyna("Beta"));
-            //stan.Druzyny.Add(new Druzyna("Gamma"));
-            //stan.Druzyny.Add(new Druzyna("Delta"));
-            //stan.Druzyny.Add(new Druzyna("Bravo"));
+            stan.Druzyny.Add(new Druzyna("Alfa"));
+            stan.Druzyny.Add(new Druzyna("Beta"));
+            stan.Druzyny.Add(new Druzyna("Gamma"));
+            stan.Druzyny.Add(new Druzyna("Delta"));
+            stan.Druzyny.Add(new Druzyna("Bravo"));
 
             PrzelaczInterfaceRozgryki();
 

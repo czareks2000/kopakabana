@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
-    class ZakonczoneSpotkanieException: Exception
+    public class ZakonczoneSpotkanieException: Exception
     {
         public ZakonczoneSpotkanieException() { }
         public ZakonczoneSpotkanieException(string msg): base(msg) { }
