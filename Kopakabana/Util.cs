@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kopakabana
 {
-    class Util
+    public class Util
     {
         private static Random rnd = new Random();
 

@@ -10,6 +10,7 @@ namespace Kopakabana
     public class FazaFinalowa : Rozgrywka
     {
         public Spotkanie Final { get; private set; }
+
         public FazaFinalowa() { }
 
         public FazaFinalowa(List<Druzyna> druzyny, List<Osoba> sedziowie, TypGry typ)

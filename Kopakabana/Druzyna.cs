@@ -10,27 +10,27 @@ namespace Kopakabana
     public class Druzyna
     {
         public string Nazwa { get; private set; }
-        private List<Osoba> zawodnicy;
+        public List<Osoba> Zawodnicy { get; private set; }
 
         public Druzyna()
         {
-            zawodnicy = new List<Osoba>();
+            Zawodnicy = new List<Osoba>();
         }
 
         public Druzyna(string nazwa)
         {
             Nazwa = nazwa;
-            zawodnicy = new List<Osoba>();
+            Zawodnicy = new List<Osoba>();
         }
 
         public Druzyna(List<Osoba> zawodnicy)
         {
-            this.zawodnicy = zawodnicy;
+            Zawodnicy = zawodnicy;
         }
 
         public void DodajZawodnika(Osoba osoba)
         {
-            zawodnicy.Add(osoba);
+            Zawodnicy.Add(osoba);
         }
     }
 }

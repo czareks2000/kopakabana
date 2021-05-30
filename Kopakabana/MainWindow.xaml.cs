@@ -101,16 +101,15 @@ namespace Kopakabana
 
         private void RozpocznijRozgrywke(TypGry typGry)
         {
-            stan.CzyRozgrywkaRozpoczeta = true;
-
             try
             {
                 stan.FazaPoczatkowa = new FazaPoczatkowa(stan.Druzyny, stan.Sedziowie, typGry);
                 listBox_spotkania.ItemsSource = stan.FazaPoczatkowa.Spotkania();
                 listBox_spotkania.Items.Refresh();
 
-                OdswiezTabliceWynikow();
+                stan.CzyRozgrywkaRozpoczeta = true;
 
+                OdswiezTabliceWynikow();
                 PrzelaczInterfaceRozgryki();
             }
             catch (PustaListaSedziowException ex)
@@ -133,8 +132,6 @@ namespace Kopakabana
 
         private void btn_RozpocznijPolfinal_Click(object sender, RoutedEventArgs e)
         {
-
-            stan.CzyPolfinalRozpoczety = true;
             lbl_NazwaEtapu.Content = "Połfinał";
 
             List<Druzyna> najlepszeCztery = stan.FazaPoczatkowa.NajlepszeCztery();
@@ -149,13 +146,13 @@ namespace Kopakabana
             listBox_spotkania.ItemsSource = stan.FazaFinalowa.Spotkania();
             listBox_spotkania.Items.Refresh();
 
+            stan.CzyPolfinalRozpoczety = true;
+
             PrzelaczInterfaceRozgryki();
         }
 
         private void btn_RozpocznijFinal_Click(object sender, RoutedEventArgs e)
         {
-
-            stan.CzyFinalRozpoczety = true;
             lbl_NazwaEtapu.Content = "Finał";
 
             Spotkanie spotkanie = stan.FazaFinalowa.RozegrajFinal(stan.Sedziowie);
@@ -164,8 +161,9 @@ namespace Kopakabana
             listBox_spotkania.Items.Add(spotkanie);
             listBox_spotkania.Items.Refresh();
 
-            PrzelaczInterfaceRozgryki();
+            stan.CzyFinalRozpoczety = true;
 
+            PrzelaczInterfaceRozgryki();
         }
 
         private void btn_ZakonczRozgrywke_Click(object sender, RoutedEventArgs e)
@@ -212,7 +210,7 @@ namespace Kopakabana
                     }
                     else
                     {
-                        if (lbl_FinalD1.Content.ToString() == "")
+                        if (lbl_FinalD1.Content == null)
                             lbl_FinalD1.Content = druzyna.Nazwa;
                         else
                             lbl_FinalD2.Content = druzyna.Nazwa;
