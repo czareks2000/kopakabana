@@ -29,18 +29,6 @@ namespace Kopakabana
 
             stan = new StanProgramu();
 
-            stan.Sedziowie.Add(new Osoba("Jan","Kowalski"));
-            stan.Sedziowie.Add(new Osoba("Joachim","Mazur"));
-            stan.Sedziowie.Add(new Osoba("Allan","Wojciechowski"));
-            stan.Sedziowie.Add(new Osoba("Kryspin","Szymczak"));
-            stan.Sedziowie.Add(new Osoba("Mirosław","Wysocki"));
-
-            stan.Druzyny.Add(new Druzyna("Alfa"));
-            stan.Druzyny.Add(new Druzyna("Beta"));
-            stan.Druzyny.Add(new Druzyna("Gamma"));
-            stan.Druzyny.Add(new Druzyna("Delta"));
-            stan.Druzyny.Add(new Druzyna("Bravo"));
-
             PrzelaczInterfaceRozgryki();
 
             listBox_druzyny.ItemsSource = stan.Druzyny;
@@ -143,6 +131,9 @@ namespace Kopakabana
             lbl_PolfinalD3.Content = najlepszeCztery[2];
             lbl_PolfinalD4.Content = najlepszeCztery[3];
 
+            lbl_FinalD1.Content = null;
+            lbl_FinalD2.Content = null;
+
             listBox_spotkania.ItemsSource = stan.FazaFinalowa.Spotkania();
             listBox_spotkania.Items.Refresh();
 
@@ -174,6 +165,7 @@ namespace Kopakabana
             listBox_spotkania.Items.Clear();
 
             PrzelaczInterfaceRozgryki();
+            ResetInterfaceu();
         }
 
         private void btn_WprowadzWynik_Click(object sender, RoutedEventArgs e)

@@ -32,25 +32,27 @@ namespace Kopakabana.Tests
             stan.Druzyny.Add(new Druzyna("Bravo"));
         }
 
-
         [TestMethod()]
         public void DodawanieOsob()
         {
             stan.Sedziowie.Add(osoba1);
             Assert.IsTrue(stan.Sedziowie.Contains(osoba1));
         }
+
         [TestMethod()]
         public void DodawanieDruzyn()
         {
             stan.Druzyny.Add(druzyna1);
             Assert.IsTrue(stan.Druzyny.Contains(druzyna1));
         }
+
         [TestMethod()]
         public void CzyZakonczonePodstawoweUstawienia()
         {
             Spotkanie spotkanie1 = new Spotkanie(stan.Druzyny[0], stan.Druzyny[1], stan.Sedziowie);
             Assert.IsFalse(spotkanie1.CzyZakonczone);
         }
+
         [TestMethod()]
         public void CzyZakonczonePoZmianie()
         {
@@ -58,6 +60,7 @@ namespace Kopakabana.Tests
             spotkanie1.Zakoncz(stan.Druzyny[0]);
             Assert.IsTrue(spotkanie1.CzyZakonczone);
         }
+
         [TestMethod()]
         public void ZakonczSpotkanieException()
         {
@@ -67,6 +70,7 @@ namespace Kopakabana.Tests
             spotkanie1.Zakoncz(stan.Druzyny[0]);
             Assert.ThrowsException<ZakonczoneSpotkanieException>(() => spotkanie1.Zakoncz(stan.Druzyny[0]));
         }
+
         [TestMethod()]
         public void WygranaDruzyna()
         {
@@ -74,12 +78,14 @@ namespace Kopakabana.Tests
             spotkanie1.Zakoncz(stan.Druzyny[0]);
             Assert.IsTrue(spotkanie1.WygranaDruzyna == stan.Druzyny[0]);
         }
+
         [TestMethod()]
         public void UsuwanieieOsob()
         {
             stan.Sedziowie.Remove(osoba1);
             Assert.IsFalse(stan.Sedziowie.Contains(osoba1));
         }
+
         [TestMethod()]
         public void UsuwanieDruzyn()
         {
