@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kopakabana", "Kopakabana\Kopakabana.csproj", "{0590D738-5A82-4AC0-A52A-FF839262CC1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KopakabanaTests1", "KopakabanaTests1\KopakabanaTests1.csproj", "{0102EE56-9EBD-4CEE-B608-436F8F4F6712}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KopakabanaTests", "KopakabanaTests\KopakabanaTests.csproj", "{BA520556-D540-4344-A7A5-E43398F6E55A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{0590D738-5A82-4AC0-A52A-FF839262CC1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0590D738-5A82-4AC0-A52A-FF839262CC1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0590D738-5A82-4AC0-A52A-FF839262CC1B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0102EE56-9EBD-4CEE-B608-436F8F4F6712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0102EE56-9EBD-4CEE-B608-436F8F4F6712}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0102EE56-9EBD-4CEE-B608-436F8F4F6712}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0102EE56-9EBD-4CEE-B608-436F8F4F6712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA520556-D540-4344-A7A5-E43398F6E55A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA520556-D540-4344-A7A5-E43398F6E55A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA520556-D540-4344-A7A5-E43398F6E55A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA520556-D540-4344-A7A5-E43398F6E55A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
