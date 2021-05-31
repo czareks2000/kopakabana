@@ -10,7 +10,9 @@ namespace Kopakabana
     public class FazaPoczatkowa : Rozgrywka
     {
         public FazaPoczatkowa() { }
-
+        /// <summary>
+        /// Funkcja tworzy spotkania każdy z każdym oraz ustawaia spotkania losowo
+        /// </summary>
         public FazaPoczatkowa(List<Druzyna> druzyny, List<Osoba> sedziowie, TypGry typ)
             : base(druzyny, typ)
         {
@@ -30,12 +32,15 @@ namespace Kopakabana
             //zmiana kolejności spotkań na losową
             spotkania = spotkania.OrderBy(i => Guid.NewGuid()).ToList();
         }
-
+        /// <summary>
+        /// Funkcja zwraca 4 najlepsze drużyny, które najlepiej poradziły sobie w fazie początkowej
+        /// </summary>
         public List<Druzyna> NajlepszeCztery()
         {
             if (new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(4).ToList().Count < 4)
                 throw new ZbytMalaLiczbaDruzynException("Druzyn jest mniej niz 4");
 
+            //pobieranie 4 najlepszych drużyn
             List<Druzyna> najlepszeCztery = new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(4).ToList();
 
             return najlepszeCztery;

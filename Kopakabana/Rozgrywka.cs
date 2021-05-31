@@ -18,7 +18,11 @@ namespace Kopakabana
             wyniki = new Dictionary<Druzyna, int>();
             spotkania = new List<Spotkanie>();
         }
-
+        /// <summary>
+        /// funckja tworzy rozgrywkę, ustwaia typ gry (zależnie od typu gry liczba sędziów jest różna)
+        /// tworzy tablicę na punkty, przypisując każdej drużynie 0 punktów
+        /// 
+        /// </summary>
         public Rozgrywka(List<Druzyna> druzyny, TypGry typ)
         {
             if(druzyny.Count<4)
@@ -47,7 +51,9 @@ namespace Kopakabana
             return spotkania;
         }
 
-        //funkcja zwracająca kolejne nie rozegrane spotkanie
+        /// <summary>
+        /// funkcja zwracająca kolejne nie rozegrane spotkanie
+        /// </summary>
         public Spotkanie KolejneSpotkanie()
         {
             foreach (var spotkanie in spotkania)
@@ -58,7 +64,9 @@ namespace Kopakabana
 
             return null;
         }
-
+        /// <summary>
+        /// dodaje punkt do tablicy wyników drużynie która wygrała spotkanie
+        /// </summary>
         public void DodajPunkt(Druzyna druzyna)
         {
             if (!wyniki.ContainsKey(druzyna))
@@ -71,7 +79,9 @@ namespace Kopakabana
         {
             return typGry;
         }
-
+        /// <summary>
+        /// funkcja losuje i zwraca sędziów/sędziego (w zależności od typu gry)
+        /// </summary>
         protected List<Osoba> LosujSedziow(List<Osoba> wszyscySedziowie)
         {
             if (wszyscySedziowie.Count == 0)

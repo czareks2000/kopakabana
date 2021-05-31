@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace Kopakabana
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private StanProgramu stan;
@@ -27,6 +24,7 @@ namespace Kopakabana
         {
             InitializeComponent();
 
+            
             stan = new StanProgramu();
 
             PrzelaczInterfaceRozgryki();
@@ -233,13 +231,16 @@ namespace Kopakabana
 
         #region Zarządzanie UI
 
-        private void ResetInterfaceu()
+        private void ResetInterfaceu(bool StanUtworzony = false)
         {
             WylaczIngerfaceRozgrywka();
-            listBox_sedziowie.ItemsSource = null;
-            listBox_sedziowie.Items.Clear();
-            listBox_druzyny.ItemsSource = null;
-            listBox_druzyny.Items.Clear();
+            if(StanUtworzony)
+            {
+                listBox_sedziowie.ItemsSource = null;
+                listBox_sedziowie.Items.Clear();
+                listBox_druzyny.ItemsSource = null;
+                listBox_druzyny.Items.Clear();
+            }
             listBox_spotkania.ItemsSource = null;
             listBox_spotkania.Items.Clear();
             listBox_tablicaWynikow.ItemsSource = null;
@@ -441,7 +442,7 @@ namespace Kopakabana
         {
             stan = s;
 
-            ResetInterfaceu();
+            ResetInterfaceu(true);
 
             if (stan.CzyFinalRozpoczety)
             {
