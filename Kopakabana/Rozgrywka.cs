@@ -19,9 +19,7 @@ namespace Kopakabana
             spotkania = new List<Spotkanie>();
         }
         /// <summary>
-        /// funckja tworzy rozgrywkę, ustwaia typ gry (zależnie od typu gry liczba sędziów jest różna)
-        /// tworzy tablicę na punkty, przypisując każdej drużynie 0 punktów
-        /// 
+        /// Konstruktor tworzy rozgrywkę, ustwaia typ gry (zależnie od typu gry liczba sędziów jest różna)
         /// </summary>
         public Rozgrywka(List<Druzyna> druzyny, TypGry typ)
         {
@@ -52,7 +50,7 @@ namespace Kopakabana
         }
 
         /// <summary>
-        /// funkcja zwracająca kolejne nie rozegrane spotkanie
+        /// Funkcja zwracająca kolejne nie rozegrane spotkanie
         /// </summary>
         public Spotkanie KolejneSpotkanie()
         {
@@ -65,7 +63,7 @@ namespace Kopakabana
             return null;
         }
         /// <summary>
-        /// dodaje punkt do tablicy wyników drużynie która wygrała spotkanie
+        /// Funkcja dodaje punkt do tablicy wyników drużynie która wygrała spotkanie
         /// </summary>
         public void DodajPunkt(Druzyna druzyna)
         {
@@ -80,7 +78,7 @@ namespace Kopakabana
             return typGry;
         }
         /// <summary>
-        /// funkcja losuje i zwraca sędziów/sędziego (w zależności od typu gry)
+        /// Funkcja losuje i zwraca sędziów/sędziego (w zależności od typu gry)
         /// </summary>
         protected List<Osoba> LosujSedziow(List<Osoba> wszyscySedziowie)
         {

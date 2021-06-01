@@ -11,7 +11,7 @@ namespace Kopakabana
     {
         public FazaPoczatkowa() { }
         /// <summary>
-        /// Funkcja tworzy spotkania każdy z każdym oraz ustawaia spotkania losowo
+        /// Konstruktor tworzy spotkania każdy z każdym oraz ustawaia spotkania losowo
         /// </summary>
         public FazaPoczatkowa(List<Druzyna> druzyny, List<Osoba> sedziowie, TypGry typ)
             : base(druzyny, typ)
@@ -33,7 +33,7 @@ namespace Kopakabana
             spotkania = spotkania.OrderBy(i => Guid.NewGuid()).ToList();
         }
         /// <summary>
-        /// Funkcja zwraca 4 najlepsze drużyny, które najlepiej poradziły sobie w fazie początkowej
+        /// Funkcja zwraca 4 najlepsze drużyny
         /// </summary>
         public List<Druzyna> NajlepszeCztery()
         {

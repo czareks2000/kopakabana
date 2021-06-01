@@ -16,15 +16,20 @@ using System.Windows.Shapes;
 
 namespace Kopakabana
 {
+    /// <summary>
+    /// Klasa MainWindow zarządza logiką interfejsu użytkownika
+    /// </summary>
     public partial class MainWindow : Window
     {
         private StanProgramu stan;
-
+        /// <summary>
+        /// Konstruktor głównego okna
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
 
-            
+            //utworzenie stanu programu        
             stan = new StanProgramu();
 
             PrzelaczInterfaceRozgryki();
@@ -34,7 +39,9 @@ namespace Kopakabana
         }
 
         #region Zarządzanie Sędziami
-
+        /// <summary>
+        /// Obsługa przycisku dodawania sędziów
+        /// </summary>
         private void btn_DodajSedziego_Click(object sender, RoutedEventArgs e)
         {
             stan.Sedziowie.Add(new Osoba(tbx_ImieSedzia.Text, tbx_NazwiskoSedzia.Text));
@@ -42,7 +49,9 @@ namespace Kopakabana
             tbx_NazwiskoSedzia.Clear();
             listBox_sedziowie.Items.Refresh();
         }
-
+        /// <summary>
+        /// Obsługa przycisku usuwania sędziów
+        /// </summary>
         private void btn_UsunSedziego_Click(object sender, RoutedEventArgs e)
         {
             if (listBox_sedziowie.SelectedIndex != -1)
@@ -55,14 +64,18 @@ namespace Kopakabana
         #endregion
 
         #region Zarządzanie Drużynami
-
+        /// <summary>
+        /// Obsługa przycisku dodawania drużyny
+        /// </summary>
         private void btn_DodajDruzyne_Click(object sender, RoutedEventArgs e)
         {
             stan.Druzyny.Add(new Druzyna(tbx_NazwaDruzyna.Text));
             tbx_NazwaDruzyna.Clear();
             listBox_druzyny.Items.Refresh();
         }
-
+        /// <summary>
+        /// Obsługa przycisku usuwania drużyny
+        /// </summary>
         private void btn_UsunDruzyne_Click(object sender, RoutedEventArgs e)
         {
             if (listBox_druzyny.SelectedIndex != -1)
@@ -75,20 +88,26 @@ namespace Kopakabana
         #endregion
 
         #region Zarządzanie Rozgrywką
-
+        /// <summary>
+        /// Obsługa przycisku rozpoczynającego rozgrywkę
+        /// </summary>
         private void btn_StartRozgrywka_Click(object sender, RoutedEventArgs e)
         {
+            //okno w którym wybieramy typ rozgrywki
             DlgTypGry dlg = new DlgTypGry();
             if (true == dlg.ShowDialog())
             {
                 RozpocznijRozgrywke((TypGry)dlg.cbx_TypGry.SelectedItem);
             }
         }
-
+        /// <summary>
+        /// Funkcja rozpoczynająca rozgrywkę, wywoływana po wciśnięciu przyciusku Rozpocznij Rozgrywkę
+        /// </summary>
         private void RozpocznijRozgrywke(TypGry typGry)
         {
             try
             {
+                //utworzenia rozgrywki
                 stan.FazaPoczatkowa = new FazaPoczatkowa(stan.Druzyny, stan.Sedziowie, typGry);
                 listBox_spotkania.ItemsSource = stan.FazaPoczatkowa.Spotkania();
                 listBox_spotkania.Items.Refresh();
@@ -115,11 +134,14 @@ namespace Kopakabana
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Obsługa przycisku rozpoczynającego półfinał
+        /// </summary>
         private void btn_RozpocznijPolfinal_Click(object sender, RoutedEventArgs e)
         {
             lbl_NazwaEtapu.Content = "Połfinał";
 
+            //pobranie 4 najlepszych drużyn z tabeli wyników
             List<Druzyna> najlepszeCztery = stan.FazaPoczatkowa.NajlepszeCztery();
 
             stan.FazaFinalowa = new FazaFinalowa(najlepszeCztery, stan.Sedziowie, stan.FazaPoczatkowa.GetTyp());
@@ -139,7 +161,9 @@ namespace Kopakabana
 
             PrzelaczInterfaceRozgryki();
         }
-
+        /// <summary>
+        /// Obsługa przycisku rozpoczynającego finał
+        /// </summary>
         private void btn_RozpocznijFinal_Click(object sender, RoutedEventArgs e)
         {
             lbl_NazwaEtapu.Content = "Finał";
@@ -154,9 +178,12 @@ namespace Kopakabana
 
             PrzelaczInterfaceRozgryki();
         }
-
+        /// <summary>
+        /// Obsługa przycisku kończącego rozgrywkę
+        /// </summary>
         private void btn_ZakonczRozgrywke_Click(object sender, RoutedEventArgs e)
         {
+            //ustawianie zmiennych na podstawowe
             stan.CzyRozgrywkaRozpoczeta = false;
             stan.CzyPolfinalRozpoczety = false;
             stan.CzyFinalRozpoczety = false;
@@ -165,7 +192,9 @@ namespace Kopakabana
             PrzelaczInterfaceRozgryki();
             ResetInterfaceu();
         }
-
+        /// <summary>
+        /// Obsługa przycisku zatwierdzającego wybór wygranej drużyny
+        /// </summary>
         private void btn_WprowadzWynik_Click(object sender, RoutedEventArgs e)
         {
             Spotkanie spotkanie;
@@ -182,13 +211,17 @@ namespace Kopakabana
                 KolejnyEtap();
             }
         }
-
+        /// <summary>
+        /// Funkcja umożliwiająca wprowadzenie wygranej drużyny
+        /// </summary>
         private void WprowadzWynik(Spotkanie spotkanie, Druzyna druzyna)
         {
             try
             {
+                //zakończenia spotkania
                 spotkanie.Zakoncz(druzyna);
 
+                //sprawdzenie w jakiej fazie jest rozgrywka (od stanu rozgrywki zależy czy drużyna dostanie punkt do tabeli, czy przejdzie do dalszej fazy rozgrywek)
                 if (stan.CzyPolfinalRozpoczety)
                 {
 
@@ -230,11 +263,14 @@ namespace Kopakabana
         #endregion
 
         #region Zarządzanie UI
-
-        private void ResetInterfaceu(bool StanUtworzony = false)
+        /// <summary>
+        /// Funkcja odpowiada za zresetowanie interfejsu
+        /// </summary>
+        private void ResetInterfaceu(bool czyWczytywanieStanu = false)
         {
             WylaczIngerfaceRozgrywka();
-            if(StanUtworzony)
+            // jeżeli funkcja wywołana wywołana jest przy wczytywaniu stanu, resetuje listy sędziów i drużyn
+            if (czyWczytywanieStanu)
             {
                 listBox_sedziowie.ItemsSource = null;
                 listBox_sedziowie.Items.Clear();
@@ -253,7 +289,9 @@ namespace Kopakabana
             lbl_PolfinalD3.Content = null;
             lbl_PolfinalD4.Content = null;
         }
-
+        /// <summary>
+        /// Funkcja odpowiada za przełączenie interfejsu graficznego
+        /// </summary>
         private void PrzelaczInterfaceRozgryki()
         {
             if (stan.CzyFinalRozpoczety)
@@ -265,20 +303,26 @@ namespace Kopakabana
             else
                 WylaczIngerfaceRozgrywka();
         }
-
+        /// <summary>
+        /// Interfejs graficzny finału
+        /// </summary>
         private void InterfaceFinal()
         {
             btn_WprowadzWynik.Visibility = Visibility.Visible;
             btn_RozpocznijFinal.Visibility = Visibility.Hidden;
         }
-
+        /// <summary>
+        /// Interfejs graficzny półfinału
+        /// </summary>
         private void InterfacePolFinal()
         {
             btn_WprowadzWynik.Visibility = Visibility.Visible;
             btn_RozpocznijPolfinal.Visibility = Visibility.Hidden;
             border_FazaFinalowa.Visibility = Visibility.Visible;
         }
-
+        /// <summary>
+        /// Funkcja włącza interfejs rozgrywki
+        /// </summary>
         private void WlaczInterfaceRozgrywka()
         {
             btn_StartRozgrywka.Visibility = Visibility.Hidden;
@@ -300,7 +344,9 @@ namespace Kopakabana
             lbl_tablicaWynikow.Visibility = Visibility.Visible;
             border_TablicaWynikow.Visibility = Visibility.Visible;
         }
-
+        /// <summary>
+        /// Funkcja wyłącza interfejs rozgrywki
+        /// </summary>
         private void WylaczIngerfaceRozgrywka()
         {
             btn_StartRozgrywka.Visibility = Visibility.Visible;
@@ -328,7 +374,10 @@ namespace Kopakabana
 
             border_FazaFinalowa.Visibility = Visibility.Hidden;
         }
-
+        /// <summary>
+        /// Funckja sprawdza czy aktualny etap jest zakończony
+        /// Jeżeli jest zakończony, rozpoczyna kolejny etap
+        /// </summary>
         private void KolejnyEtap()
         {
             if (stan.CzyFinalRozpoczety)
@@ -357,7 +406,9 @@ namespace Kopakabana
                 btn_RozpocznijPolfinal.Visibility = Visibility.Visible;
             }
         }
-
+        /// <summary>
+        /// Funkcja odświeża tablicę wyników
+        /// </summary>
         private void OdswiezTabliceWynikow()
         {
             listBox_tablicaWynikow.ItemsSource = stan.FazaPoczatkowa.TablicaWynikow();
@@ -387,7 +438,9 @@ namespace Kopakabana
             else
                 btn_DodajSedziego.IsEnabled = true;
         }
-
+        /// <summary>
+        /// Funkcja wyświetla okno ze szczegółami wybranego spotkania
+        /// </summary>
         private void btn_Podglad_Click(object sender, RoutedEventArgs e)
         {
             Spotkanie spotkanie = (Spotkanie)listBox_spotkania.SelectedItem;
@@ -405,7 +458,9 @@ namespace Kopakabana
         #endregion
 
         #region Zapis i odczyt stanu programu
-
+        /// <summary>
+        /// Obsługa przycisku zapisującego stan gry
+        /// </summary>
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog
@@ -421,7 +476,9 @@ namespace Kopakabana
                 BinarySerializer.Serialize(new FileInfo(dlg.FileName), stan);
 
         }
-
+        /// <summary>
+        /// Obsługa przycisku wczytującego stan gry
+        /// </summary>
         private void btn_load_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
@@ -437,7 +494,9 @@ namespace Kopakabana
                 WczytajStanProgramu((StanProgramu)BinarySerializer.Deserialize(new FileInfo(dlg.FileName)));
 
         }
-
+        /// <summary>
+        /// Funkcja wczytująca stan gry
+        /// </summary>
         private void WczytajStanProgramu(StanProgramu s)
         {
             stan = s;
@@ -462,7 +521,9 @@ namespace Kopakabana
             listBox_sedziowie.Items.Refresh();
             listBox_druzyny.Items.Refresh();
         }
-
+        /// <summary>
+        /// Funkcja wczytująca faze finałową
+        /// </summary>
         private void WczytajFazeFinalowa()
         {
             lbl_NazwaEtapu.Content = "Finał";
@@ -488,7 +549,9 @@ namespace Kopakabana
             OdswiezTabliceWynikow();
             KolejnyEtap();
         }
-
+        /// <summary>
+        /// Funkcja wczytująca faze półfinałową
+        /// </summary>
         private void WczytajFazePolfinalowa()
         {
             lbl_NazwaEtapu.Content = "Połfinał";
@@ -515,7 +578,9 @@ namespace Kopakabana
             InterfacePolFinal();
             OdswiezTabliceWynikow();
         }
-
+        /// <summary>
+        /// Funkcja wczytująca faze początkową
+        /// </summary>
         private void WczytajFazePoczatkowa()
         {
             lbl_NazwaEtapu.Content = "Faza Początkowa";

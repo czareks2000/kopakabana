@@ -14,26 +14,27 @@ namespace Kopakabana
         public FazaFinalowa() { }
 
         /// <summary>
-        /// Funkcja tworzy dwa spotkania półfinałowe
-        /// </summary>s
+        /// Konstruktor tworzy dwa spotkania półfinałowe
+        /// </summary>
         public FazaFinalowa(List<Druzyna> druzyny, List<Osoba> sedziowie, TypGry typ)
             : base(druzyny, typ)
         {
+            //utworzenie dwóch spotkań półfinałowych
             spotkania.Add(new Spotkanie(druzyny[0], druzyny[1], LosujSedziow(sedziowie)));
             spotkania.Add(new Spotkanie(druzyny[2], druzyny[3], LosujSedziow(sedziowie)));
         }
         /// <summary>
         /// Funkcja tworzy spotkanie finałowe z drużyn które wygrały półfinały
-        /// List<Druzyna> finaloweDruzyny - pobranie dwóch wygranych drużyn z tablicy wyników
-        /// Final - utworzenie finalowego spotkania
         /// </summary>
         public Spotkanie RozegrajFinal(List<Osoba> sedziowie)
         {
             if(new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(2).ToList().Count < 2)
                 throw new ZbytMalaLiczbaDruzynException("Druzyn jest mniej niz 2");
 
+            //pobranie dwóch wygranych drużyn z tablicy wyników
             List<Druzyna> finaloweDruzyny = new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(2).ToList();
 
+            //utworzenie finalowego spotkania
             Final = new Spotkanie(finaloweDruzyny[0], finaloweDruzyny[1], LosujSedziow(sedziowie));
             spotkania.Add(Final);
 
