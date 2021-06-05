@@ -27,8 +27,9 @@ namespace Kopakabana
             Sedziowie = s;
             CzyZakonczone = false;
         }
+
         /// <summary>
-        ///Funkcja konczy spotkanie, użytkownik musi wybrać która z drużyn wygrała
+        ///Funkcja konczy spotkanie i ustawia wygraną drużyne
         /// </summary>
         public void Zakoncz(Druzyna druzyna)
         {

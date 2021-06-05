@@ -18,6 +18,7 @@ namespace Kopakabana
             wyniki = new Dictionary<Druzyna, int>();
             spotkania = new List<Spotkanie>();
         }
+
         /// <summary>
         /// Konstruktor tworzy rozgrywkę, ustwaia typ gry (zależnie od typu gry liczba sędziów jest różna)
         /// </summary>
@@ -38,7 +39,9 @@ namespace Kopakabana
             }
         }
 
-        //zwraca posortowaną tablice wyników
+        /// <summary>
+        /// Funkcja zwracająca posortowaną tablice wyników
+        /// </summary>
         public IOrderedEnumerable<KeyValuePair<Druzyna, int>> TablicaWynikow()
         {
             return from entry in wyniki orderby entry.Value descending select entry;
@@ -62,8 +65,9 @@ namespace Kopakabana
 
             return null;
         }
+
         /// <summary>
-        /// Funkcja dodaje punkt do tablicy wyników drużynie która wygrała spotkanie
+        /// Funkcja dodaje punkt do tablicy wyników podanej drużynie
         /// </summary>
         public void DodajPunkt(Druzyna druzyna)
         {
@@ -77,6 +81,7 @@ namespace Kopakabana
         {
             return typGry;
         }
+
         /// <summary>
         /// Funkcja losuje i zwraca sędziów/sędziego (w zależności od typu gry)
         /// </summary>

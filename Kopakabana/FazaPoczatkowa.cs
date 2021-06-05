@@ -10,6 +10,7 @@ namespace Kopakabana
     public class FazaPoczatkowa : Rozgrywka
     {
         public FazaPoczatkowa() { }
+
         /// <summary>
         /// Konstruktor tworzy spotkania każdy z każdym oraz ustawaia spotkania losowo
         /// </summary>
@@ -32,6 +33,7 @@ namespace Kopakabana
             //zmiana kolejności spotkań na losową
             spotkania = spotkania.OrderBy(i => Guid.NewGuid()).ToList();
         }
+
         /// <summary>
         /// Funkcja zwraca 4 najlepsze drużyny
         /// </summary>
@@ -40,7 +42,6 @@ namespace Kopakabana
             if (new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(4).ToList().Count < 4)
                 throw new ZbytMalaLiczbaDruzynException("Druzyn jest mniej niz 4");
 
-            //pobieranie 4 najlepszych drużyn
             List<Druzyna> najlepszeCztery = new List<Druzyna>(from kvp in TablicaWynikow() select kvp.Key).Take(4).ToList();
 
             return najlepszeCztery;

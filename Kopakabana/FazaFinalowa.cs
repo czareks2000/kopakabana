@@ -23,6 +23,7 @@ namespace Kopakabana
             spotkania.Add(new Spotkanie(druzyny[0], druzyny[1], LosujSedziow(sedziowie)));
             spotkania.Add(new Spotkanie(druzyny[2], druzyny[3], LosujSedziow(sedziowie)));
         }
+
         /// <summary>
         /// Funkcja tworzy spotkanie finałowe z drużyn które wygrały półfinały
         /// </summary>
